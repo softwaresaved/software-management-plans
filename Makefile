@@ -36,7 +36,7 @@ pdf : $(DST_PDF)
 
 # Pattern to build PDF document.
 %.pdf : %.html
-	${WKHTMLTOPDF} $< $@
+	${HTML_PDF} $< $@
 
 ## commands : Display available commands.
 commands : Makefile
