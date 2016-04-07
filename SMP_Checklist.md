@@ -69,4 +69,5 @@ multiple lines.
 
 ## Direct link
 
-http://www.google.co.uk
+A direct link to <http://www.google.co.uk>.
+
