@@ -29,7 +29,7 @@ pdf : $(DST_PDF)
 
 # Pattern to build HTML page.
 %.html : %.md _layouts/page.html $(FILTERS)
-	${PANDOC} -s -t html \
+	${PANDOC} -s --toc -t html \
 	    ${PANDOC_FLAGS} \
 	    --template=_layouts/page \
 	    -o $@ $<
