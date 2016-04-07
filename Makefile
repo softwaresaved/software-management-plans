@@ -1,6 +1,7 @@
 PANDOC ?= pandoc
 PANDOC_FLAGS = --smart
 HTML_PDF ?= html-pdf
+WKHTMLTOPDF ?= wkhtmltopdf
 
 # Markdown files.
 ALL_MD = $(wildcard *.md)
@@ -35,7 +36,7 @@ pdf : $(DST_PDF)
 
 # Pattern to build PDF document.
 %.pdf : %.html
-	${HTML_PDF} $< $@
+	${WKHTMLTOPDF} $< $@
 
 ## commands : Display available commands.
 commands : Makefile
@@ -45,6 +46,7 @@ commands : Makefile
 settings :
 	@echo 'PANDOC:' $(PANDOC)
 	@echo 'HTML_PDF:' $(HTML_PDF)
+	@echo 'WKHTMLTOPDF:' $(WKHTMLTOPDF)
 	@echo 'SRC_MD:' $(SRC_MD)
 	@echo 'DST_HTML:' $(DST_HTML)
 	@echo 'DST_PDF:' $(DST_PDF)
