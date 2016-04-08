@@ -19,6 +19,9 @@ advice and guidance and is structured as follows:
       - Another sub-question?
       guidance:
       - Some guidance
+      -
+        - List for guidance   
+        - List for guidance   
       - Some more guidance
     - question: A question with no guidance?
       consider: 
@@ -41,6 +44,10 @@ The following constraints are on each field:
   have 1+ members.
 * guidance: 0 or 1 per question. If provided then its sequence must
   have 1+ members.
+* Colons, :, in text should be surrounded by text or, for a lead-in
+  to a list a ",". Otherwise YAML will interpret it as a delimiter.
+  - "Examples include:one, two, three"
+  - "Examples include,"
 
 The above renders into MarkDown as follows:
 
@@ -60,6 +67,9 @@ The above renders into MarkDown as follows:
     **Guidance:**
 
     Some guidance
+
+    * List for guidance
+    * List for guidance
 
     Some more guidance
 
@@ -108,24 +118,31 @@ def yaml_to_markdown(docs):
     single section and of software management plan advice and guidance
     and print out as MarkDown.
     """
+    print("---")
+    print("title: Checklist for a Software Management Plan v0.1")
+    print("---")
+
     for doc in docs:
         print("## " + doc[SECTION] + "\n")
         if INTRO in doc.keys():
             for intro in doc[INTRO]:
                 print(intro + "\n")
         for question in doc[QUESTIONS]:
-            print("###" + " " + question[QUESTION] + "\n")
+            print("### " + question[QUESTION] + "\n")
             if CONSIDER in question.keys():
                 print("**Questions to consider:**\n")
                 for consider in question[CONSIDER]:
-                    print("*" + " " + consider)
+                    print("* " + consider)
                 print("")
             if GUIDANCE in question.keys():
                 print("**Guidance:**\n")
                 for guidance in question[GUIDANCE]:
-                    print(guidance)
-                print("")
-        print("---")
+                    if (type(guidance) == list):
+                        for element in guidance:
+                            print("* " + element)
+                        print("")
+                    else:
+                        print(guidance + "\n")
 
 if __name__ == '__main__':
     file_name = sys.argv[1]
