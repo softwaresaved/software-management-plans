@@ -118,9 +118,6 @@ def yaml_to_markdown(docs):
     single section and of software management plan advice and guidance
     and print out as MarkDown.
     """
-    print("---")
-    print("title: Checklist for a Software Management Plan v0.1")
-    print("---")
 
     for doc in docs:
         print("## " + doc[SECTION] + "\n")
