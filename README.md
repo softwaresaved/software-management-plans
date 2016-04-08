@@ -28,6 +28,12 @@ $ git --version
 git version 1.9.1
 ```
 
+Install [pyyaml](http://pyyaml.org/) YAML parser for Python:
+
+```
+$ pip install pyyaml
+```
+
 Install [Pandoc](http://pandoc.org/) document converter:
 
 ```
