@@ -1,11 +1,14 @@
-#advice {
+body {
+    font-family: "Verdana", "Open Sans", "Helvetica", "Arial", sans-serif;
+    color: #000000;
     background-color: white;
-    margin-right: 40px;
-    margin-left: 40px;
+    line-height: 1.5;
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 11pt
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Open Sans", "Helvetica", "Arial", sans-serif;
     font-weight: bold;
 }
 
@@ -18,12 +21,6 @@ h1, h2 {
     margin: 20px 0px;
 }
 
-body {
-    font-family: "Open Sans", "Helvetica", "Arial", sans-serif;
-    color: rgb(0, 0, 0);
-    background-color: white;
-}
-
 table {
     margin-bottom: 15px;
 }
@@ -32,14 +29,9 @@ table th, table td {
     padding: 5px 10px;
 }
 
-table > thead > .header {
-    background: transparent;
-}
-
 table > thead > tr > td, table > thead > tr > th,
-table > tbody > tr > td, table > tbody > tr > th,
-table > tfoot > tr > td, table > tfoot > tr > th {
-    border: 1px solid #DDD;
+table > tbody > tr > td, table > tbody > tr > th {
+    border: 1px solid #DDDDDD;
     text-align : left;
     vertical-align : top;
 }
@@ -47,6 +39,7 @@ table > tfoot > tr > td, table > tfoot > tr > th {
 table > thead > tr > th,
 table > thead > tr > td {
     border-bottom-width: 2px;
+    background-color: #BDBDBD;
 }
 
 table tbody > tr:nth-of-type(2n+1) {
