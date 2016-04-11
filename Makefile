@@ -8,6 +8,7 @@ PANDOC ?= pandoc
 PANDOC_FLAGS = --smart
 HTML_PDF ?= html-pdf
 WKHTMLTOPDF ?= wkhtmltopdf
+WKHTMLTOPDF_FLAGS ?= -T 20 -B 20
 
 # Markdown files.
 DST_MD = $(patsubst %.yaml,%.md,$(SRC_YAML))
@@ -40,14 +41,14 @@ $(DST_MD) : $(SRC_YAML) $(HDR_MD) $(YAML_MD)
 
 # Build HTML pages.
 $(DST_HTML) : $(DST_MD) _layouts/page.html $(FILTERS)
-	${PANDOC} -s $(TOC) -t html \
-	    ${PANDOC_FLAGS} \
+	$(PANDOC) -s $(TOC) -t html \
+	    $(PANDOC_FLAGS) \
 	    --template=_layouts/page \
 	    -o $@ $<
 
 # Build PDF documents.
 $(DST_PDF) : $(DST_HTML)
-	${WKHTMLTOPDF} $< $@
+	$(WKHTMLTOPDF) $(WKHTMLTOPDF_FLAGS) $< $@
 
 ## commands : Display available commands.
 commands : Makefile
