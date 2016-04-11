@@ -23,6 +23,7 @@ h1, h2 {
 
 table {
     margin-bottom: 15px;
+    border-collapse: collapse;
 }
 
 table th, table td {
@@ -31,14 +32,13 @@ table th, table td {
 
 table > thead > tr > td, table > thead > tr > th,
 table > tbody > tr > td, table > tbody > tr > th {
-    border: 1px solid #DDDDDD;
+    border: 0.5px solid #000000;
     text-align : left;
     vertical-align : top;
 }
 
 table > thead > tr > th,
 table > thead > tr > td {
-    border-bottom-width: 2px;
     background-color: #BDBDBD;
 }
 
