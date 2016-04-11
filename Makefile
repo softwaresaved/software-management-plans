@@ -1,9 +1,9 @@
 SRC ?= SMP_Checklist
 SRC_YAML ?= $(SRC).yaml
 HDR_MD ?= $(SRC).header.md
-
 YAML_MD ?= yaml_to_markdown.py
 PY_YAML_MD ?= python $(YAML_MD)
+TOC ?=
 PANDOC ?= pandoc
 PANDOC_FLAGS = --smart
 HTML_PDF ?= html-pdf
@@ -40,7 +40,7 @@ $(DST_MD) : $(SRC_YAML) $(HDR_MD) $(YAML_MD)
 
 # Build HTML pages.
 $(DST_HTML) : $(DST_MD) _layouts/page.html $(FILTERS)
-	${PANDOC} -s --toc -t html \
+	${PANDOC} -s $(TOC) -t html \
 	    ${PANDOC_FLAGS} \
 	    --template=_layouts/page \
 	    -o $@ $<
@@ -58,6 +58,7 @@ settings :
 	@echo 'YAML_MD:' $(YAML_MD)
 	@echo 'PY_YAML_MD:' $(PY_YAML_MD)
 	@echo 'PANDOC:' $(PANDOC)
+	@echo 'TOC:' $(TOC)
 	@echo 'HTML_PDF:' $(HTML_PDF)
 	@echo 'WKHTMLTOPDF:' $(WKHTMLTOPDF)
 	@echo 'SRC:' $(SRC)

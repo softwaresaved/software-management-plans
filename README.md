@@ -88,6 +88,12 @@ Create HTML and PDF:
 $ make pdf
 ```
 
+Create HTML and PDF with table of contents:
+
+```
+$ TOC=--toc make pdf
+```
+
 ### Notes
 
 [Pandoc demos](http://pandoc.org/demos.html) use xelatex to convert MarkDown to PDF:
