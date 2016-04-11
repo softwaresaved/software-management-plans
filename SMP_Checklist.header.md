@@ -22,4 +22,3 @@ The advice and guidance have evolved in response to feedback from: Mario Antonio
 
 We also acknowledge the valuable assistance and generosity of the Digital Curation Centre <http://www.dcc.ac.uk>, particularly Sarah Jones and Marta Ribeiro, in extending DMPonline to support Software Management Plans.
 
----
