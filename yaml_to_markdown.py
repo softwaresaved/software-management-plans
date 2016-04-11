@@ -48,49 +48,9 @@ The following constraints are on each field:
   to a list a ",". Otherwise YAML will interpret it as a delimiter.
   - "Examples include:one, two, three"
   - "Examples include,"
-
-The above renders into MarkDown as follows:
-
-    ## About your software - a minimal Software Management Plan
-
-    Context
-
-    More context
-
-    ### A question with sub-questions and guidance?
-
-    **Questions to consider:**
-
-    * A sub-question?
-    * Another sub-question?
-
-    **Guidance:**
-
-    Some guidance
-
-    * List for guidance
-    * List for guidance
-
-    Some more guidance
-
-    ### A question with no guidance?
-
-    **Questions to consider:**
-
-    * A sub-question?
-    * Another sub-question?
-
-    ### A question with no sub-questions?
-
-    Some guidance
-
-    Some more guidance
-
-    ### A question with no guidance or sub-questions?
-    
-    ---    
 """
 
+from optparse import OptionParser
 import sys
 import yaml
 
@@ -108,7 +68,8 @@ FUDGE = 20
 """
 Fudge factor for first column. No word in the first column should be
 wider than this word otherwise the MarkDown won't be in a
-Pandoc-compatiblegrid table format.
+Pandoc-compatible grid table format (see Extension:grid_tables in
+http://pandoc.org/README.html).
 """
 
 def convert_file(file_name, advice_format):
@@ -122,6 +83,7 @@ def convert_file(file_name, advice_format):
             yaml_to_markdown(docs)
         else:
             yaml_to_markdown_table(docs)
+
 
 def yaml_to_markdown(docs):
     """
@@ -151,12 +113,15 @@ def yaml_to_markdown(docs):
                     else:
                         print(guidance + "\n")
 
+
 def print_left_cell(text):
     for word in text.split(" "):
         print("| " + word + ((FUDGE - len(word) - 2) * " ") +  " | |")
 
+
 def print_right_cell(empty_cell, text):
     print(empty_cell + " " + text + " |")
+
 
 def yaml_to_markdown_table(docs):
     """
@@ -191,12 +156,11 @@ def yaml_to_markdown_table(docs):
                     else:
                         print_right_cell(empty_cell, guidance)
                     print(blank_row)
-                    print(row)
+                print(row)
         print("\n")
 
-from optparse import OptionParser
 
-if __name__ == '__main__':
+def convert_yaml():
     parser = OptionParser(usage="%prog [-f 'text' | 'table'] file")
     parser.add_option("-f", "--format",
                       default=ADVICE_TABLE,
@@ -207,3 +171,7 @@ if __name__ == '__main__':
         parser.error("Missing file name")
     file_name = args[0]
     convert_file(file_name, options.format)
+
+
+if __name__ == '__main__':
+    convert_yaml();
