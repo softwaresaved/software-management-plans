@@ -101,16 +101,27 @@ QUESTION = "question"
 CONSIDER = "consider"
 GUIDANCE = "guidance"
 
-file_name = sys.argv[1]
+ADVICE_TEXT = "text"
+ADVICE_TABLE = "table"
 
-def convert_file(file_name):
+FUDGE = 20
+"""
+Fudge factor for first column. No word in the first column should be
+wider than this word otherwise the MarkDown won't be in a
+Pandoc-compatiblegrid table format.
+"""
+
+def convert_file(file_name, advice_format):
     """
     Read in a YAML software management plan advice and guidance
     file and print it out in MarkDown.
     """
     with open(file_name, "r") as stream:
         docs = yaml.load_all(stream)
-        yaml_to_markdown(docs)
+        if (advice_format == ADVICE_TEXT):
+            yaml_to_markdown(docs)
+        else:
+            yaml_to_markdown_table(docs)
 
 def yaml_to_markdown(docs):
     """
@@ -118,7 +129,6 @@ def yaml_to_markdown(docs):
     single section and of software management plan advice and guidance
     and print out as MarkDown.
     """
-
     for doc in docs:
         print("## " + doc[SECTION] + "\n")
         if INTRO in doc.keys():
@@ -141,6 +151,59 @@ def yaml_to_markdown(docs):
                     else:
                         print(guidance + "\n")
 
+def print_left_cell(text):
+    for word in text.split(" "):
+        print("| " + word + ((FUDGE - len(word) - 2) * " ") +  " | |")
+
+def print_right_cell(empty_cell, text):
+    print(empty_cell + " " + text + " |")
+
+def yaml_to_markdown_table(docs):
+    """
+    Read in a sequence of YAML documents, each corresponding to a
+    single section and of software management plan advice and guidance
+    and print out as MarkDown.
+    """
+    row = "+" + ("-" * FUDGE) + "+" + ("-" * (80 - FUDGE - 4)) + "+"
+    empty_cell = "|" + (" " * FUDGE) + "|"
+    blank_row = empty_cell + " |"
+    for doc in docs:
+        print("## " + doc[SECTION] + "\n")
+        if INTRO in doc.keys():
+            for intro in doc[INTRO]:
+                print(intro + "\n")
+        print(row)
+        for question in doc[QUESTIONS]:
+            print_left_cell(question[QUESTION])
+            if CONSIDER in question.keys():
+                print_right_cell(empty_cell, "**Questions to consider:**")
+                print(blank_row)
+                for consider in question[CONSIDER]:
+                    print_right_cell(empty_cell, "* " + consider)
+                print(blank_row)
+            if GUIDANCE in question.keys():
+                print_right_cell(empty_cell, "**Guidance:**")
+                print(blank_row)
+                for guidance in question[GUIDANCE]:
+                    if (type(guidance) == list):
+                        for element in guidance:
+                            print_right_cell(empty_cell, "* " + element)
+                    else:
+                        print_right_cell(empty_cell, guidance)
+                    print(blank_row)
+                    print(row)
+        print("\n")
+
+from optparse import OptionParser
+
 if __name__ == '__main__':
-    file_name = sys.argv[1]
-    convert_file(file_name)
+    parser = OptionParser(usage="%prog [-f 'text' | 'table'] file")
+    parser.add_option("-f", "--format",
+                      default=ADVICE_TABLE,
+                      dest="format",
+                      help="Advice format ('text' or 'table')")
+    (options, args) = parser.parse_args()
+    if (len(args) == 0):
+        parser.error("Missing file name")
+    file_name = args[0]
+    convert_file(file_name, options.format)
