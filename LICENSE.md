@@ -50,4 +50,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 * http://software-carpentry.org
 * Copyright (c) Software Carpentry.
 * License: [MIT license](http://opensource.org/licenses/mit-license.html).
-* Files: `css/swc.css`, `LICENSE.md`, `Makefile`, `_layouts/page.html`. Modified from originals from [shell-novice](https://github.com/swcarpentry/shell-novice) lesson (commit [bb5275c47b7b1812239a87babd18663339cbb943](https://github.com/swcarpentry/shell-novice/commit/bb5275c47b7b1812239a87babd18663339cbb943)).
+* Files: `LICENSE.md`, `Makefile`, `_layouts/page.html`. Modified from originals from [shell-novice](https://github.com/swcarpentry/shell-novice) lesson (commit [bb5275c47b7b1812239a87babd18663339cbb943](https://github.com/swcarpentry/shell-novice/commit/bb5275c47b7b1812239a87babd18663339cbb943)).
+* Files: `css/smp.css`. Modified from `css/swc.css` from [shell-novice](https://github.com/swcarpentry/shell-novice) lesson (commit [bb5275c47b7b1812239a87babd18663339cbb943](https://github.com/swcarpentry/shell-novice/commit/bb5275c47b7b1812239a87babd18663339cbb943)).
