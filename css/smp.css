@@ -24,47 +24,6 @@ body {
     background-color: white;
 }
 
-table.blogcalendar th {
-    text-align  : right;
-    font-weight : bold;
-}
-
-table.blogcalendar th.left {
-    text-align : left;
-}
-
-table.blogcalendar tr td {
-    text-align : right;
-}
-
-table.blogindex td.date {
-    text-align: left ;
-    width:10em;
-}
-
-table.choices tr td {
-    vertical-align : top;
-}
-
-table.outlined {
-    border-collapse: collapse;
-}
-
-table.workshops td.link {
-    width: 50%;
-    text-align: left;
-}
-
-table.workshops td.spacer {
-   max-width: 100%;
-   text-align: center;
-}
-
-table.workshops td.date {
-    width: 50%;
-    text-align: right;
-}
-
 table {
     margin-bottom: 15px;
 }
@@ -81,6 +40,8 @@ table > thead > tr > td, table > thead > tr > th,
 table > tbody > tr > td, table > tbody > tr > th,
 table > tfoot > tr > td, table > tfoot > tr > th {
     border: 1px solid #DDD;
+    text-align : left;
+    vertical-align : top;
 }
 
 table > thead > tr > th,
@@ -91,17 +52,3 @@ table > thead > tr > td {
 table tbody > tr:nth-of-type(2n+1) {
     background-color: #F9F9F9;
 }
-
-#header-text {
-    font-size:20pt;
-    margin:0;
-}
-
-#home-options {
-    background:#F6F6F6;
-    border-top:1px solid #DDDDDD;
-    border-bottom:1px solid #DDDDDD;
-    padding:20px 0;
-    margin-bottom:20px;
-}
-
