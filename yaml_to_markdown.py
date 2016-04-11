@@ -123,6 +123,12 @@ def print_right_cell(empty_cell, text):
     print(empty_cell + " " + text + " |")
 
 
+def print_header():
+     checklist = "Checklist"
+     print("| " + checklist + ((FUDGE - len(checklist) - 2) * " ") +
+           " | Guidance and Questions to consider |")
+
+
 def yaml_to_markdown_table(docs):
     """
     Read in a sequence of YAML documents, each corresponding to a
@@ -130,6 +136,7 @@ def yaml_to_markdown_table(docs):
     and print out as MarkDown.
     """
     row = "+" + ("-" * FUDGE) + "+" + ("-" * (80 - FUDGE - 4)) + "+"
+    header_row = "+" + ("=" * FUDGE) + "+" + ("=" * (80 - FUDGE - 4)) + "+"
     empty_cell = "|" + (" " * FUDGE) + "|"
     blank_row = empty_cell + " |"
     for doc in docs:
@@ -138,6 +145,8 @@ def yaml_to_markdown_table(docs):
             for intro in doc[INTRO]:
                 print(intro + "\n")
         print(row)
+        print_header()
+        print(header_row)
         for question in doc[QUESTIONS]:
             print_left_cell(question[QUESTION])
             if CONSIDER in question.keys():
