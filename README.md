@@ -46,10 +46,11 @@ pandoc 1.17.0.2
 Install [wkhtmltopdf](http://wkhtmltopdf.org/) HTML-to-PDF converter:
 
 ```
-$ apt-get install wkhtmltopdf
-$ wkhtmltopdf -V
-Name:
-  wkhtmltopdf 0.9.6
+$ wget http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
+$ tar -xf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
+$ export PATH=$PWD/wkhtmltox/bin:$PATH
+$ wkhtmltopdf --version
+wkhtmltopdf 0.12.3 (with patched qt)
 ```
 
 Install [Node.js](https://nodejs.org/) JavaScript environment:
