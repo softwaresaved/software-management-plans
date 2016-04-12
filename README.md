@@ -81,6 +81,12 @@ Create HTML document with tabular checklist format and table of contents:
 $ PANDOC_TOC=--toc YAML_MD_FLAGS="-f table" make html
 ```
 
+Create HTML document with tabular checklist format, consisting of the key sections and questions only with no advice and guidance:
+
+```
+$ YAML_MD_FLAGS="-f summary" make html
+```
+
 **Note:** while PDFs can be created from the HTML with tabular checklists, the tables do not currently get converted correctly by wkhtmltopdf (0.12.3).
 
 ### Notes
