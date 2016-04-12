@@ -1,0 +1,25 @@
+---
+section: About your software - a minimal Software Management Plan
+intro:
+- Intro1
+- Intro2
+questions:
+- question: What software will you write?
+  consider: 
+  - Question1
+  - Question2
+  guidance:
+  - Guidance1
+  -
+    - Guidance1 bullet1
+    - Guidance1 bullet2
+  - Guidance2
+- question: What software will you write with no guidance?
+  consider: 
+  - Question1
+  - Question2
+- question: What software will you write with no questions?
+  guidance:
+  - Guidance1
+  - Guidance2
+- question: What software will you write with no advice?

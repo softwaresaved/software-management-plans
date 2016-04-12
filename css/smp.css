@@ -1,0 +1,47 @@
+body {
+    font-family: "Verdana", "Open Sans", "Helvetica", "Arial", sans-serif;
+    color: #000000;
+    background-color: white;
+    line-height: 1.5;
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 11pt
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+h1, h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#title {
+    margin: 20px 0px;
+}
+
+table {
+    margin-bottom: 15px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 5px 10px;
+}
+
+table > thead > tr > td, table > thead > tr > th,
+table > tbody > tr > td, table > tbody > tr > th {
+    border: 1pt solid #000000;
+    text-align : left;
+    vertical-align : top;
+}
+
+table > thead > tr > th,
+table > thead > tr > td {
+    background-color: #BDBDBD;
+}
+
+table tbody > tr:nth-of-type(2n+1) {
+    background-color: #F9F9F9;
+}
