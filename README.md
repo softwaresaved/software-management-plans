@@ -8,7 +8,7 @@
 
 ---
 
-## Generate HTML and PDF
+## Create HTML and PDF documents
 
 About these instructions:
 
@@ -19,6 +19,8 @@ About these instructions:
 ```
 $ sudo su -
 ```
+
+### Install dependencies
 
 Install [Git](https://git-scm.com/) version control tool:
 
@@ -53,47 +55,33 @@ $ wkhtmltopdf --version
 wkhtmltopdf 0.12.3 (with patched qt)
 ```
 
-Install [Node.js](https://nodejs.org/) JavaScript environment:
+### Create documents
 
-```
-$ apt-get -y install nodejs
-$ nodejs -v
-v0.10.25
-```
-
-Create a symbolic link as third-party packages expect nodejs to be called node:
-
-```
-$ ln -s /usr/bin/nodejs /usr/bin/node
-$ node -v
-v0.10.25
-```
-
-Install [npm](https://www.npmjs.com/) Node.js package manager:
-
-```
-$ apt-get -y install npm
-$ npm -v
-1.3.10
-```
-
-Install [html-pdf](https://www.npmjs.com/package/html-pdf) Node.js package to convert HTML to PDF:
-
-```
-$ npm install -g html-pdf
-```
-
-Create HTML and PDF:
+Create SMP_Checklist.html and SMP_Checklist.pdf:
 
 ```
 $ make pdf
 ```
 
-Create HTML and PDF with table of contents:
+Create documents with tables of contents:
 
 ```
-$ TOC=--toc make pdf
+$ PANDOC_TOC=--toc make pdf
 ```
+
+Create HTML document with tabular checklist format:
+
+```
+$ YAML_MD_FLAGS="-f table" make html
+```
+
+Create HTML document with tabular checklist format and table of contents:
+
+```
+$ PANDOC_TOC=--toc YAML_MD_FLAGS="-f table" make html
+```
+
+**Note:** while PDFs can be created from the HTML with tabular checklists, the tables do not currently get converted correctly by wkhtmltopdf (0.12.3).
 
 ### Notes
 
@@ -105,12 +93,3 @@ $ pandoc --latex-engine=xelatex test.md -o test.pdf
 ```
 
 I found that this gives PDFs that look like LaTeX documents, which I wasn't happy with the look of.
-
-[markdown-pdf](https://www.npmjs.com/package/markdown-pdf) is a Node.js package to convert MarkDown to PDF:
-
-```
-$ npm install -g markdown-pdf
-$ markdown-pdf test.md -o test.pdf
-```
-
-This didn't handle grid tables or hyperlinks well.
