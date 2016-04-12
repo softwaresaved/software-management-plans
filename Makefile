@@ -2,13 +2,13 @@ SRC ?= SMP_Checklist
 SRC_YAML ?= $(SRC).yaml
 HDR_MD ?= $(SRC).header.md
 YAML_MD ?= yaml_to_markdown.py
+YAML_MD_FLAGS ?= -f table
 PY_YAML_MD ?= python $(YAML_MD)
-TOC ?=
 PANDOC ?= pandoc
 PANDOC_FLAGS = --smart
+PANDOC_TOC ?=
 HTML_PDF ?= html-pdf
 WKHTMLTOPDF ?= wkhtmltopdf
-WKHTMLTOPDF_FLAGS ?= -T 20 -B 20
 
 # Markdown files.
 DST_MD = $(patsubst %.yaml,%.md,$(SRC_YAML))
@@ -37,18 +37,18 @@ pdf : $(DST_PDF)
 # Build MarkDown pages.
 $(DST_MD) : $(SRC_YAML) $(HDR_MD) $(YAML_MD)
 	cp $(HDR_MD) $@
-	$(PY_YAML_MD) $< >> $@
+	$(PY_YAML_MD) $(YAML_MD_FLAGS) $< >> $@
 
 # Build HTML pages.
 $(DST_HTML) : $(DST_MD) _layouts/page.html $(FILTERS)
-	$(PANDOC) -s $(TOC) -t html \
+	$(PANDOC) -s $(PANDOC_TOC) -t html \
 	    $(PANDOC_FLAGS) \
 	    --template=_layouts/page \
 	    -o $@ $<
 
 # Build PDF documents.
 $(DST_PDF) : $(DST_HTML)
-	$(WKHTMLTOPDF) $(WKHTMLTOPDF_FLAGS) $< $@
+	$(WKHTMLTOPDF) $< $@
 
 ## commands : Display available commands.
 commands : Makefile
@@ -57,9 +57,10 @@ commands : Makefile
 ## settings : Show variables and settings.
 settings :
 	@echo 'YAML_MD:' $(YAML_MD)
+	@echo 'YAML_MD_FLAGS:' $(YAML_MD_FLAGS)
 	@echo 'PY_YAML_MD:' $(PY_YAML_MD)
 	@echo 'PANDOC:' $(PANDOC)
-	@echo 'TOC:' $(TOC)
+	@echo 'PANDOC_TOC:' $(TOC)
 	@echo 'HTML_PDF:' $(HTML_PDF)
 	@echo 'WKHTMLTOPDF:' $(WKHTMLTOPDF)
 	@echo 'SRC:' $(SRC)
