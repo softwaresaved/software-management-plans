@@ -1,6 +1,6 @@
 # Copyright and Licence
 
-## Advice and huidance text
+## Advice and guidance text
 
 Except where otherwise noted, advice and guidance text is licensed under a [Creative Commons Attribution Non-Commercial 2.5 License](http://creativecommons.org/licenses/by-nc/2.5/scotland/).
 
