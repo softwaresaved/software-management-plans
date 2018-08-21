@@ -92,7 +92,7 @@ questions:
 ---
 section: Developing good software
 intro:
-- Developing software that can be understood by developers, is tested and is tested well, is documented for both users and developers, and is usable within across environments by a wide range of users.
+- Developing software that can be understood by developers, is tested and is tested well, is documented for both users and developers, and is usable across environments by a wide range of users.
 questions:
 - question: How you will deliver code that can be understood?
   consider:
