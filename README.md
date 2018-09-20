@@ -7,7 +7,7 @@ Sources and scripts for creating software management plan checklists in various 
 For more information see:
 
 * [Software Management Plans](https://www.software.ac.uk/software-management-plans) web page on The Software Sustainability Institute web site.
-* [DMPonline](https://dmponline.dcc.ac.uk/) service from [The Digital Curation Centre](https://www.dcc.ac.uk) which hosts Software Management Plan templates.
+* [DMPonline](http://dmponline.dcc.ac.uk/) service from [The Digital Curation Centre](https://www.dcc.ac.uk) which hosts Software Management Plan templates.
 
 ---
 
