@@ -106,7 +106,7 @@ Run:
 make pdf
 ```
 
-This will process the files in `src/` and create a Markdown checklist in `build/markdown/`.
+This will process the files in `data/` and create a Markdown checklist in `build/markdown/`.
 
 ---
 

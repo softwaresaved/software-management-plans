@@ -1,8 +1,8 @@
-SRC_DIR = src
-SRC_PREFIX = SMP_Checklist
-SRC_YAML = $(SRC_DIR)/$(SRC_PREFIX).yaml
-SRC_HDR_MD = $(SRC_DIR)/$(SRC_PREFIX).header.md
-YAML_TO_MD = scripts/yaml_to_markdown.py
+DATA_DIR = data
+DATA_PREFIX = SMP_Checklist
+DATA_YAML = $(DATA_DIR)/$(DATA_PREFIX).yaml
+DATA_HDR_MD = $(DATA_DIR)/$(DATA_PREFIX).header.md
+YAML_TO_MD = src/yaml_to_markdown.py
 
 IMAGES = $(wildcard images/*.png)
 TEMPLATE = templates/doc.html
@@ -15,9 +15,9 @@ BUILD_DIR = build
 BUILD_MD_DIR = $(BUILD_DIR)/markdown
 BUILD_HTML_DIR = $(BUILD_DIR)/html
 BUILD_PDF_DIR = $(BUILD_DIR)/pdf
-BUILD_MD = $(BUILD_MD_DIR)/$(SRC_PREFIX).md
-BUILD_HTML = $(BUILD_HTML_DIR)/$(SRC_PREFIX).html
-BUILD_PDF = $(BUILD_PDF_DIR)/$(SRC_PREFIX).pdf
+BUILD_MD = $(BUILD_MD_DIR)/$(DATA_PREFIX).md
+BUILD_HTML = $(BUILD_HTML_DIR)/$(DATA_PREFIX).html
+BUILD_PDF = $(BUILD_PDF_DIR)/$(DATA_PREFIX).pdf
 LINK_REPORT = $(BUILD_DIR)/link-check.txt
 
 # Default action is to show what commands are available.
@@ -43,9 +43,9 @@ html : $(BUILD_HTML)
 pdf : $(BUILD_PDF)
 
 # Create Markdown document.
-$(BUILD_MD) : $(SRC_YAML) $(SRC_HDR_MD) $(YAML_TO_MD)
+$(BUILD_MD) : $(DATA_YAML) $(DATA_HDR_MD) $(YAML_TO_MD)
 	mkdir -p $(BUILD_MD_DIR)
-	cp $(SRC_HDR_MD) $@
+	cp $(DATA_HDR_MD) $@
 	python $(YAML_TO_MD) -f text $< >> $@
 
 # Convert Markdown to HTML.
@@ -80,10 +80,10 @@ commands : Makefile
 ## settings    : Show variables and settings.
 .PHONY : settings
 settings :
-	@echo 'SRC_DIR:' $(SRC_DIR)
-	@echo 'SRC_PREFIX:' $(SRC_PREFIX)
-	@echo 'SRC_YAML:' $(SRC_YAML)
-	@echo 'SRC_HDR_MD:' $(SRC_HDR_MD)
+	@echo 'DATA_DIR:' $(DATA_DIR)
+	@echo 'DATA_PREFIX:' $(DATA_PREFIX)
+	@echo 'DATA_YAML:' $(DATA_YAML)
+	@echo 'DATA_HDR_MD:' $(DATA_HDR_MD)
 	@echo 'YAML_TO_MD' $(YAML_TO_MD)
 	@echo 'IMAGES:' $(IMAGES)
 	@echo 'TEMPLATE:' $(TEMPLATE)
