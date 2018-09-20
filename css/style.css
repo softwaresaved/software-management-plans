@@ -1,0 +1,175 @@
+@font-face
+{ 
+    font-family: "Times New Roman", Times, serif;
+}
+h1.title
+{
+    text-align: center;
+}
+h2.author
+{
+    text-align: center;
+    font-weight: normal;
+    font-size: 100%;
+}
+h3.date
+{
+    text-align: center;
+    font-weight: normal;
+    font-size: 100%;
+}
+p.caution
+{
+    background-color: #ffffb3;
+    font-weight: bold;
+    border: 1px;
+}
+p.version, p.doi
+{
+    text-align: center;
+}
+p.caption
+{
+    text-align: center;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 100%;
+}
+.figure
+{ 
+    text-align: center;
+}
+table.center
+{
+    margin-left:auto; 
+    margin-right:auto;
+}
+table, th, td
+{
+   border: 1px solid black;
+}
+.noborder, .noborder tr, .noborder th, .noborder td
+{
+    border: none;
+}
+.pagebreak-after
+{ 
+    page-break-after: always;
+}
+.pagebreak-before
+{ 
+    page-break-before: always;
+}
+div.footnotes li
+{ 
+    font-size: 80%;
+}
+#jisc-logo, #ssi-logo
+{
+    height: 60px;
+}
+#ccby-logo
+{
+    height: 40px;
+}
+#logos-table
+{ 
+    width: 100%;
+}
+#logos-left-cell
+{ 
+    text-align: left;
+}
+#logos-right-cell
+{ 
+    text-align: right;
+}
+/**
+    Image widths are chosen such that, when converted to PDFs, each HTML
+    page has both the Introduction and image plus its caption on its
+    first page i.e. the image is not placed on the second page; but
+    also so that no header appears right at the bottom of the page.
+
+    700px seems to be the maximum width possible before an image whose
+    width is greater than its height is cropped at its right edge.
+*/
+#why-image
+{
+    width: 700px;
+}
+#when-image
+{
+    width: 700px;
+}
+#where-image
+{
+    width: 700px;
+}
+#how-image
+{
+    width: 700px;
+}
+#what-image
+{
+    width: 650px;
+}
+#what-not-image
+{
+    width: 350px;
+}
+#describe-image
+{
+    width: 700px;
+}
+#licence-image
+{
+    width: 400px;
+}
+#review-image
+{
+    width: 650px;
+}
+/**
+    Image widths are chosen such that, when converted to PDF,
+    SoftwareDepositGuidance, allows for an image and its caption
+    to be on the same page, but also so that large chunks of white
+    space are not left. This involved fiddling with both these
+    image widths and the placement of .pagebreak-before for certain
+    headings in SoftwareDepositGuidance.md.
+*/
+#guidance-why-image
+{
+    width: 550px;
+}
+#guidance-when-image
+{
+    width: 550px;
+}
+#guidance-where-image
+{
+    width: 550px;
+}
+#guidance-how-image
+{
+    width: 550px;
+}
+#guidance-what-image
+{
+    width: 550px;
+}
+#guidance-what-not-image
+{
+    width: 300px;
+}
+#guidance-describe-image
+{
+    width: 550px;
+}
+#guidance-licence-image
+{
+    width: 550px;
+}
+#guidance-review-image
+{
+    width: 550px;
+}
