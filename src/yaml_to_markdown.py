@@ -22,7 +22,7 @@ of advice and guidance and be structured as follows:
     - Each entry corresponds to a paragraph.
     questions:
     - question: A question.
-      consider: 
+      consider:
       - A sub-question to consider.
       - Another sub-question to consider.
       guidance:
@@ -33,7 +33,7 @@ of advice and guidance and be structured as follows:
         - Bulleted list entry within guidance.
       - Some more guidance.
     - question: A question with no guidance.
-      consider: 
+      consider:
       - A sub-question to consider.
       - Another sub-question to consider.
     - question: A question with no sub-questions.
@@ -65,7 +65,6 @@ The following constraints hold for each field:
 """
 
 from optparse import OptionParser
-import sys
 import yaml
 
 SECTION = "section"
@@ -88,17 +87,24 @@ paragraphs and bulleted lists within table cells. No word in the first
 column of a grid table should be wider than this.
 """
 
+
 def convert_file(file_name, advice_format):
     """
     Read YAML software management plan file and print it out in
     MarkDown.
+
+    :param file_name: file name
+    :type: str or unicode
+    :param advice_format: one of ADVICE_TEXT, ADVICE_TABLE,
+    or ADVICE_SUMMARY (default)
+    :type: str or unicode
     """
     with open(file_name, "r") as stream:
         sections = yaml.load_all(stream)
-        if (advice_format == ADVICE_TEXT):
+        if advice_format == ADVICE_TEXT:
             output_text(sections)
             output_table(sections)
-        elif (advice_format == ADVICE_TABLE):
+        elif advice_format == ADVICE_TABLE:
             output_table(sections)
         else:
             output_summary(sections)
@@ -111,43 +117,61 @@ def output_text(sections):
     MarkDown, with each question being rendered as a section with
     its questions to consider and guidance as bulleted lists and
     paragraphs within that section.
+
+    :param sections: sections as YAML documents
+    :type: list of dict
     """
     for section in sections:
-        print("## " + section[SECTION] + "\n")
-        if INTRO in section.keys():
+        print(("## " + section[SECTION] + "\n"))
+        if INTRO in list(section.keys()):
             for intro in section[INTRO]:
-                print(intro + "\n")
+                print((intro + "\n"))
         for question in section[QUESTIONS]:
-            print("### " + question[QUESTION] + "\n")
-            if CONSIDER in question.keys():
+            print(("### " + question[QUESTION] + "\n"))
+            if CONSIDER in list(question.keys()):
                 print("**Questions to consider:**\n")
                 for consider in question[CONSIDER]:
-                    print("* " + consider)
+                    print(("* " + consider))
                 print("")
-            if GUIDANCE in question.keys():
-                print("**Guidance:**\n")
+            if GUIDANCE in list(question.keys()):
+                print(("**Guidance:**\n"))
                 for guidance in question[GUIDANCE]:
-                    if (type(guidance) == list):
+                    if isinstance(guidance, list):
                         for element in guidance:
-                            print("* " + element)
+                            print(("* " + element))
                         print("")
                     else:
-                        print(guidance + "\n")
+                        print((guidance + "\n"))
 
 
 def print_left_cell(text):
+    """
+    Print cell for left-hand column.
+
+    :param text: cell text
+    :type: str or unicode
+    """
     for word in text.split(" "):
-        print("| " + word + ((FUDGE - len(word) - 2) * " ") +  " | |")
+        print(("| " + word + ((FUDGE - len(word) - 2) * " ") + " | |"))
 
 
 def print_right_cell(empty_cell, text):
-    print(empty_cell + " " + text + " |")
+    """
+    Print cell for right-hand column.
+
+    :param text: cell text
+    :type: str or unicode
+    """
+    print((empty_cell + " " + text + " |"))
 
 
 def print_header():
-     checklist = "Checklist"
-     print("| " + checklist + ((FUDGE - len(checklist) - 2) * " ") +
-           " | Guidance and Questions to consider |")
+    """
+    Print checklist header.
+    """
+    checklist = "Checklist"
+    print(("| " + checklist + ((FUDGE - len(checklist) - 2) * " ") +
+           " | Guidance and Questions to consider |"))
 
 
 def output_table(sections):
@@ -157,36 +181,39 @@ def output_table(sections):
     MarkDown, with each section being rendered as a table, with a row
     for each question and its associated questions to consider and
     guidance. If the section has introductory paragraphs then these
-    are rendered before the table. 
+    are rendered before the table.
 
     This function uses FUDGE as a fudge factor for first column for
     Pandoc-compatible grid table format in MarkDown.
+
+    :param sections: sections as YAML documents
+    :type: list of dict
     """
     row = "+" + ("-" * FUDGE) + "+" + ("-" * (80 - FUDGE - 4)) + "+"
     header_row = "+" + ("=" * FUDGE) + "+" + ("=" * (80 - FUDGE - 4)) + "+"
     empty_cell = "|" + (" " * FUDGE) + "|"
     blank_row = empty_cell + " |"
     for section in sections:
-        print("## " + section[SECTION] + "\n")
-        if INTRO in section.keys():
+        print(("## " + section[SECTION] + "\n"))
+        if INTRO in list(section.keys()):
             for intro in section[INTRO]:
-                print(intro + "\n")
+                print((intro + "\n"))
         print(row)
         print_header()
         print(header_row)
         for question in section[QUESTIONS]:
             print_left_cell(question[QUESTION])
-            if CONSIDER in question.keys():
+            if CONSIDER in list(question.keys()):
                 print_right_cell(empty_cell, "**Questions to consider:**")
                 print(blank_row)
                 for consider in question[CONSIDER]:
                     print_right_cell(empty_cell, "* " + consider)
                 print(blank_row)
-            if GUIDANCE in question.keys():
+            if GUIDANCE in list(question.keys()):
                 print_right_cell(empty_cell, "**Guidance:**")
                 print(blank_row)
                 for guidance in question[GUIDANCE]:
-                    if (type(guidance) == list):
+                    if isinstance(guidance, list):
                         for element in guidance:
                             print_right_cell(empty_cell, "* " + element)
                     else:
@@ -206,13 +233,16 @@ def output_summary(sections):
 
     Tables are in the Pandoc-compatible pipe table format in Markdown
     (see Extension:pipe_tables in http://pandoc.org/README.html).
+
+    :param sections: sections as YAML documents
+    :type: list of dict
     """
-    print "| Checklist |"
-    print "|" + 80 * "-" + "|"
+    print(("| Checklist |"))
+    print(("|" + 80 * "-" + "|"))
     for section in sections:
-        print("| **" + section[SECTION] + "** |")
+        print(("| **" + section[SECTION] + "** |"))
         for question in section[QUESTIONS]:
-            print("| " + question[QUESTION] + " |")
+            print(("| " + question[QUESTION] + " |"))
 
 
 def yaml_to_markdown():
@@ -228,11 +258,11 @@ def yaml_to_markdown():
                       dest="format",
                       help="Advice format ('text' or 'table' or 'checklist')")
     (options, args) = parser.parse_args()
-    if (len(args) == 0):
+    if not args:
         parser.error("Missing file name")
     file_name = args[0]
     convert_file(file_name, options.format)
 
 
 if __name__ == '__main__':
-    yaml_to_markdown();
+    yaml_to_markdown()
