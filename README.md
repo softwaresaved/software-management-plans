@@ -25,6 +25,8 @@ sudo su -
 
 ## Install dependencies
 
+### Pandoc
+
 Install [Pandoc](https://pandoc.org/) document converter:
 
 ```bash
@@ -34,6 +36,8 @@ pandoc --version
 ```
 pandoc 1.16.0.2
 ```
+
+### wkhtmltopdf
 
 Install [wkhtmltopdf](https://wkhtmltopdf.org/) HTML-to-PDF converter (using latest stable version, 0.12.5, for Ubuntu 16.04 Xenial, on web site):
 
@@ -46,26 +50,49 @@ wkhtmltopdf  --version
 wkhtmltopdf 0.12.5 (with patched qt)
 ```
 
-Install [Anaconda Python 2.7](https://www.anaconda.com):
+### Python
 
-* If you already have Python you can skip this step.
+Install [Python](https://www.python.org/)
 
-```bash
-wget https://repo.anaconda.com/archive/Anaconda2-5.2.0-Linux-x86_64.sh
-bash Anaconda2-5.2.0-Linux-x86_64.sh
-```
+* If you already have Python you can skip this step. If you don't have Python then we recommend [Miniconda Python](https://conda.io/miniconda.html).
+* Either Python 2.7+ or Python 3.6+ can be used.
 
-* Create: `anaconda2.sh`, with content:
-
-```
-export PATH=~/anaconda2/bin:$PATH
-```
-
-* Set environment:
+**Miniconda Python 2.7**
 
 ```bash
-source anaconda2.sh
+wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda2.sh
+bash miniconda2.sh -b -p $HOME/miniconda2
 ```
+
+Set environment and check:
+
+```bash
+source $HOME/miniconda2/bin/activate
+python -V
+```
+```
+Python 2.7.15 :: Anaconda, Inc.
+```
+
+**Miniconda Python 3.6**
+
+```bash
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda3.sh
+bash miniconda3.sh -b -p $HOME/miniconda3
+```
+
+Set environment and check:
+
+
+```bash
+source $HOME/miniconda3/bin/activate
+python -V
+```
+```
+Python 3.6.5 :: Anaconda, Inc.
+```
+
+### pyyaml
 
 Install [pyyaml](https://pyyaml.org/):
 
@@ -75,11 +102,15 @@ Install [pyyaml](https://pyyaml.org/):
 pip install pyyaml
 ```
 
+### Microsoft TrueType core fonts:
+
 Install Microsoft TrueType core fonts:
 
 ```bash
 apt-get install ttf-mscorefonts-installer
 ```
+
+### linkchecker
 
 Install [linkchecker](https://github.com/linkchecker/linkchecker) 9.4:
 
