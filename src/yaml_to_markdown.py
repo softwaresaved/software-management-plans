@@ -4,47 +4,51 @@
 Read in YAML file with software management plan advice and guidance
 and print it out in MarkDown.
 
-    Usage: yaml_to_markdown.py [-f 'text' | 'table' | 'checklist' ] file
+    usage: python yaml_to_markdown.py [-h] [-f FILE] [-o FORMAT]
 
-    Options:
+    optional arguments:
       -h, --help            show this help message and exit
-      -f FORMAT, --format=FORMAT
-                            Advice format ('text' or 'table' or
-                            'checklist')
+      -f FILE, --file FILE  YAML configuration file
+      -o FORMAT, --output FORMAT
+                            Output format ('text' | 'table' | 'list')
 
-Each document in the YAML file should correspond to a single section
-of advice and guidance and be structured as follows:
+The YAML file must hold a single document. The document must be
+structured as follows:
 
     ---
-    section: Section name e.g. About your software
-    intro:
-    - Context
-    - Each entry corresponds to a paragraph.
-    questions:
-    - question: A question.
-      consider:
-      - A sub-question to consider.
-      - Another sub-question to consider.
-      guidance:
-      - Some guidance.
+    sections:
+    - section: Section name e.g. About your software
+      intro:
+      - Context
       - Each entry corresponds to a paragraph.
-      -
-        - Bulleted list entry within guidance.
-        - Bulleted list entry within guidance.
-      - Some more guidance.
-    - question: A question with no guidance.
-      consider:
-      - A sub-question to consider.
-      - Another sub-question to consider.
-    - question: A question with no sub-questions.
-      guidance:
-      - Some guidance.
-      - Each entry corresponds to a paragraph.
-    - question: A question with no guidance or sub-questions.
+      questions:
+      - question: A question.
+        consider:
+        - A sub-question to consider.
+        - Another sub-question to consider.
+        guidance:
+        - Some guidance.
+        - Each entry corresponds to a paragraph.
+         -
+          - Bulleted list entry within guidance.
+          - Bulleted list entry within guidance.
+        - Some more guidance.
+      - question: A question with no guidance.
+        consider:
+        - A sub-question to consider.
+        - Another sub-question to consider.
+      - question: A question with no sub-questions.
+        guidance:
+        - Some guidance.
+        - Each entry corresponds to a paragraph.
+      - question: A question with no guidance or sub-questions.
+    - section: Another section name.
+      ...
 
 The following constraints hold for each field:
 
-* section: 1
+* sections: 1
+* section: 0+
 * intro: 0 or 1. If provided then its sequence must have 1+ entries.
 * questions: 1
 * question: 1+
@@ -64,9 +68,10 @@ The following constraints hold for each field:
         - five.
 """
 
-from optparse import OptionParser
+from argparse import ArgumentParser
 import yaml
 
+SECTIONS = "sections"
 SECTION = "section"
 INTRO = "intro"
 QUESTIONS = "questions"
@@ -74,9 +79,9 @@ QUESTION = "question"
 CONSIDER = "consider"
 GUIDANCE = "guidance"
 
-ADVICE_TEXT = "text"
-ADVICE_TABLE = "table"
-ADVICE_CHECKLIST = "checklist"
+FORMAT_TEXT = "text"
+FORMAT_TABLE = "table"
+FORMAT_LIST = "list"
 
 FUDGE = 20
 """
@@ -88,38 +93,153 @@ column of a grid table should be wider than this.
 """
 
 
-def convert_file(file_name, advice_format):
+def read_file(file_name):
     """
-    Read YAML software management plan file and print it out in
-    MarkDown.
+    Read YAML file and return contents.
 
     :param file_name: file name
-    :type: str or unicode
-    :param advice_format: one of ADVICE_TEXT, ADVICE_TABLE,
-    or ADVICE_SUMMARY (default)
-    :type: str or unicode
+    :type file_name: str or unicode
+    :return: document
+    :rtype: dict
     """
+    document = None
     with open(file_name, "r") as stream:
-        sections = yaml.load_all(stream)
-        if advice_format == ADVICE_TEXT:
-            output_text(sections)
-            output_table(sections)
-        elif advice_format == ADVICE_TABLE:
-            output_table(sections)
-        else:
-            output_summary(sections)
+        document = yaml.load(stream)
+    return document
 
 
-def output_text(sections):
+def write_markdown(document, output_format):
     """
-    Read in a sequence of YAML documents, each corresponding to a
-    single section of a software management plan and print out as
-    MarkDown, with each question being rendered as a section with
-    its questions to consider and guidance as bulleted lists and
+    Write out software management plan as Markdown.
+
+    :param document: software management plan
+    :type document: dict
+    :param output_format: one of FORMAT_TEXT (default), FORMAT_TABLE,
+    FORMAT_LIST
+    :type output_format: str or unicode
+    """
+    sections = document[SECTIONS]
+    if output_format == FORMAT_TABLE:
+        write_markdown_tables(sections)
+    elif output_format == FORMAT_LIST:
+        write_markdown_list(sections)
+    else:
+        write_markdown_text(sections)
+
+
+def write_left_cell(text):
+    """
+    Write cell for left-hand column.
+
+    :param text: cell text
+    :type text: str or unicode
+    """
+    for word in text.split(" "):
+        print(("| " + word + ((FUDGE - len(word) - 2) * " ") + " | |"))
+
+
+def write_right_cell(empty_cell, text):
+    """
+    Write cell for right-hand column.
+
+    :param text: cell text
+    :type text: str or unicode
+    """
+    print((empty_cell + " " + text + " |"))
+
+
+def write_header():
+    """
+    Write checklist header.
+    """
+    checklist = "Checklist"
+    print(("| " + checklist + ((FUDGE - len(checklist) - 2) * " ") +
+           " | Guidance and Questions to consider |"))
+
+
+def write_markdown_tables(sections):
+    """
+    Process a list of dictionaries, each corresponding to a single
+    section of a software management plan, and output these as
+    Markdown, with each section being rendered as a table.
+    Each table has a row for each question and its associated
+    questions to consider and  guidance. If the section has
+    introductory paragraphs then these are rendered before the table.
+
+    This function uses FUDGE as a fudge factor for first column for
+    Pandoc-compatible grid table format in MarkDown.
+
+    :param sections: sections
+    :type sections: list of dict
+    """
+    row = "+" + ("-" * FUDGE) + "+" + ("-" * (80 - FUDGE - 4)) + "+"
+    header_row = "+" + ("=" * FUDGE) + "+" + ("=" * (80 - FUDGE - 4)) + "+"
+    empty_cell = "|" + (" " * FUDGE) + "|"
+    blank_row = empty_cell + " |"
+    for section in sections:
+        print(("## " + section[SECTION] + "\n"))
+        if INTRO in list(section.keys()):
+            for intro in section[INTRO]:
+                print((intro + "\n"))
+        print(row)
+        write_header()
+        print(header_row)
+        for question in section[QUESTIONS]:
+            write_left_cell(question[QUESTION])
+            if CONSIDER in list(question.keys()):
+                write_right_cell(empty_cell, "**Questions to consider:**")
+                print(blank_row)
+                for consider in question[CONSIDER]:
+                    write_right_cell(empty_cell, "* " + consider)
+                print(blank_row)
+            if GUIDANCE in list(question.keys()):
+                write_right_cell(empty_cell, "**Guidance:**")
+                print(blank_row)
+                for guidance in question[GUIDANCE]:
+                    if isinstance(guidance, list):
+                        for element in guidance:
+                            write_right_cell(empty_cell, "* " + element)
+                    else:
+                        write_right_cell(empty_cell, guidance)
+                    print(blank_row)
+            print(row)
+        print("\n")
+
+
+def write_markdown_list(sections):
+    """
+    Process a list of dictionaries, each corresponding to a
+    single section of a software management plan, and output these as
+    a Markdown table, with a row for each section name, and each
+    question within a section.
+
+    Associated questions to consider, guidance and introductory
+    paragraphs are not rendered.
+
+    Tables are in the Pandoc-compatible pipe table format in Markdown
+    (see Extension:pipe_tables in http://pandoc.org/README.html).
+
+    :param sections: sections
+    :type sections: list of dict
+    """
+    print(("| Checklist |"))
+    print(("|" + 80 * "-" + "|"))
+    for section in sections:
+        print(("| **" + section[SECTION] + "** |"))
+        for question in section[QUESTIONS]:
+            print(("| " + question[QUESTION] + " |"))
+
+
+def write_markdown_text(sections):
+    """
+    Process a list of dictionaries, each corresponding to a single
+    section of a software management plan and output these as
+    Markdown, with each question being rendered as a text with its
+    questions to consider and guidance as bulleted lists and
     paragraphs within that section.
 
-    :param sections: sections as YAML documents
-    :type: list of dict
+    :param sections: sections
+    :type sections: list of dict
     """
     for section in sections:
         print(("## " + section[SECTION] + "\n"))
@@ -144,125 +264,44 @@ def output_text(sections):
                         print((guidance + "\n"))
 
 
-def print_left_cell(text):
+def parse_command_line_arguments():
     """
-    Print cell for left-hand column.
+    Parse command-line arguments, printing usage information if there
+    are any problems.
 
-    :param text: cell text
-    :type: str or unicode
+    :return: command-line arguments
+    :rtype: argparse.Namespace
     """
-    for word in text.split(" "):
-        print(("| " + word + ((FUDGE - len(word) - 2) * " ") + " | |"))
+    parser = ArgumentParser("python yaml_to_markdown.py")
+    parser.add_argument("-f", "--file",
+                        dest="file",
+                        help="YAML configuration file")
+    parser.add_argument("-o", "--output",
+                        default=FORMAT_TEXT,
+                        dest="format",
+                        help="Output format ('text' | 'table' | 'list')")
+    args = parser.parse_args()
+    if not args.file:
+        parser.error("Missing file name")
+    return args
 
 
-def print_right_cell(empty_cell, text):
-    """
-    Print cell for right-hand column.
-
-    :param text: cell text
-    :type: str or unicode
-    """
-    print((empty_cell + " " + text + " |"))
-
-
-def print_header():
-    """
-    Print checklist header.
-    """
-    checklist = "Checklist"
-    print(("| " + checklist + ((FUDGE - len(checklist) - 2) * " ") +
-           " | Guidance and Questions to consider |"))
-
-
-def output_table(sections):
-    """
-    Read in a sequence of YAML documents, each corresponding to a
-    single section of a software management plan and print out as
-    MarkDown, with each section being rendered as a table, with a row
-    for each question and its associated questions to consider and
-    guidance. If the section has introductory paragraphs then these
-    are rendered before the table.
-
-    This function uses FUDGE as a fudge factor for first column for
-    Pandoc-compatible grid table format in MarkDown.
-
-    :param sections: sections as YAML documents
-    :type: list of dict
-    """
-    row = "+" + ("-" * FUDGE) + "+" + ("-" * (80 - FUDGE - 4)) + "+"
-    header_row = "+" + ("=" * FUDGE) + "+" + ("=" * (80 - FUDGE - 4)) + "+"
-    empty_cell = "|" + (" " * FUDGE) + "|"
-    blank_row = empty_cell + " |"
-    for section in sections:
-        print(("## " + section[SECTION] + "\n"))
-        if INTRO in list(section.keys()):
-            for intro in section[INTRO]:
-                print((intro + "\n"))
-        print(row)
-        print_header()
-        print(header_row)
-        for question in section[QUESTIONS]:
-            print_left_cell(question[QUESTION])
-            if CONSIDER in list(question.keys()):
-                print_right_cell(empty_cell, "**Questions to consider:**")
-                print(blank_row)
-                for consider in question[CONSIDER]:
-                    print_right_cell(empty_cell, "* " + consider)
-                print(blank_row)
-            if GUIDANCE in list(question.keys()):
-                print_right_cell(empty_cell, "**Guidance:**")
-                print(blank_row)
-                for guidance in question[GUIDANCE]:
-                    if isinstance(guidance, list):
-                        for element in guidance:
-                            print_right_cell(empty_cell, "* " + element)
-                    else:
-                        print_right_cell(empty_cell, guidance)
-                    print(blank_row)
-            print(row)
-        print("\n")
-
-
-def output_summary(sections):
-    """
-    Read in a sequence of YAML documents, each corresponding to a
-    single section of a software management plan and print out as
-    MarkDown table, with a row for each section name, and each
-    question within a section. Associated questions to consider,
-    guidance and introductory paragraphs are not rendered.
-
-    Tables are in the Pandoc-compatible pipe table format in Markdown
-    (see Extension:pipe_tables in http://pandoc.org/README.html).
-
-    :param sections: sections as YAML documents
-    :type: list of dict
-    """
-    print(("| Checklist |"))
-    print(("|" + 80 * "-" + "|"))
-    for section in sections:
-        print(("| **" + section[SECTION] + "** |"))
-        for question in section[QUESTIONS]:
-            print(("| " + question[QUESTION] + " |"))
-
-
-def yaml_to_markdown():
+def yaml_to_markdown(file_name, output_format):
     """
     Set up command-line arguments and parse these, printing usage
-    information if there are any problems, or processing the
-    YAML file otherwise.
+    information if there are any problems, or processing the YAML file
+    otherwise.
+
+    :param file_name: file name
+    :type file_name: str or unicode
+    :param output_format: one of FORMAT_TEXT (default), FORMAT_TABLE,
+    FORMAT_LIST
+    :type output_format: str or unicode
     """
-    parser = OptionParser(
-        usage="%prog [-f 'text' | 'table' | 'checklist' ] file")
-    parser.add_option("-f", "--format",
-                      default=ADVICE_TABLE,
-                      dest="format",
-                      help="Advice format ('text' or 'table' or 'checklist')")
-    (options, args) = parser.parse_args()
-    if not args:
-        parser.error("Missing file name")
-    file_name = args[0]
-    convert_file(file_name, options.format)
+    document = read_file(file_name)
+    write_markdown(document, output_format)
 
 
 if __name__ == '__main__':
-    yaml_to_markdown()
+    command_line_args = parse_command_line_arguments()
+    yaml_to_markdown(command_line_args.file, command_line_args.format)

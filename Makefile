@@ -46,7 +46,7 @@ pdf : $(BUILD_PDF)
 $(BUILD_MD) : $(DATA_YAML) $(DATA_HDR_MD) $(YAML_TO_MD)
 	mkdir -p $(BUILD_MD_DIR)
 	cp $(DATA_HDR_MD) $@
-	python $(YAML_TO_MD) -f text $< >> $@
+	python $(YAML_TO_MD) -f $< -o text >> $@
 
 # Convert Markdown to HTML.
 $(BUILD_HTML) : $(BUILD_MD) $(IMAGES) $(TEMPLATE) $(CSS)
