@@ -26,6 +26,7 @@ structured as follows:
       website: URL of web site associated with document.
       keywords: list of keywords.
       licence: licence information.
+      licence-tag: licence tag, from SPDX, https://spdx.org/licenses/.
     intro: Introductory text.
     usage: Usage conditions.
     acks: Acknowledgements.
@@ -70,6 +71,7 @@ The following constraints hold for each field:
 * website: 1
 * keywords: 0+
 * licence: 1
+* licence-tag: 1
 * sections: 1
 * section: 0+
 * intro: 0 or 1. If provided then its sequence must have 1+ entries.
