@@ -248,3 +248,17 @@ Copyright (c) 2014-2018, The University of Edinburgh
 * Source code: Apache License, Version 2.0, January 2004
 
 For full details, see [LICENCE](./LICENCE).
+
+The Software Sustainability Institute provides the checklist on an "as-is" basis, makes no warranties regarding any information provided within and disclaims liability for damages resulting from using this information. You are solely responsible for determining the appropriateness of any advice and guidance provided and assume any risks associated with your use of this advice and guidance. If you have any questions regarding the right licence for your code or any other legal issues relating to it, consult with a professional for advice relating to your individual circumstances.
+
+---
+
+## Acknowledgements
+
+The checklist has its origins in:
+
+Chue Hong, Neil (2014) "Writing and using a software management plan", The Software Sustainability Institute [http://www.software.ac.uk/resources/guides/software-management-plans](http://www.software.ac.uk/resources/guides/software-management-plans>).
+
+The checklist has evolved in response to feedback from: Mario Antonioletti, Neil Chue Hong, Steve Crouch, Carole Goble, John Robinson, The Software Sustainability Institute; Peter Cock, The James Hutton Institute; Robert Davey, The Genome Analysis Centre; Mark Plumbley, Centre for Vision, Speech and signal Processing, University of Surrey; Chris Rawlings, Rothamsted Research.
+
+We also acknowledge the valuable assistance and generosity of [The Digital Curation Centre](http://www.dcc.ac.uk), particularly Sarah Jones and Marta Ribeiro, in advice on extending [DMPonline](http://dmponline.dcc.ac.uk/) service from [The Digital Curation Centre](https://www.dcc.ac.uk) to gost Software Management Plans.
