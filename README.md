@@ -1,8 +1,8 @@
-# Software Management Plans
+# Checklist for a Software Management Plan
 
 [The Software Sustainability Institute](https://www.software.ac.uk).
 
-Sources and scripts for creating software management plan checklists in various formats.
+Sources and scripts for creating a software management plan checklist in various formats.
 
 For more information see:
 
