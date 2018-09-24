@@ -19,9 +19,5 @@ The Software Sustainability Institute provides this checklist on an "as-is" basi
 
 ## Acknowledgements
 
-The checklist has its origins in:
-
-Chue Hong, Neil (2014) "Writing and using a software management plan", The Software Sustainability Institute [http://www.software.ac.uk/resources/guides/software-management-plans](http://www.software.ac.uk/resources/guides/software-management-plans).
-
-The checklist has evolved in response to feedback from: Mario Antonioletti, Neil Chue Hong, Steve Crouch, Carole Goble, John Robinson, The Software Sustainability Institute; Peter Cock, The James Hutton Institute; Robert Davey, The Genome Analysis Centre; Mark Plumbley, Centre for Vision, Speech and signal Processing, University of Surrey; Chris Rawlings, Rothamsted Research.
+The checklist has its origins in Chue Hong, Neil (2014) "Writing and using a software management plan", The Software Sustainability Institute [http://www.software.ac.uk/resources/guides/software-management-plans](http://www.software.ac.uk/resources/guides/software-management-plans), 2014. The following people offered valuable advice and guidance which contributed to both the content and form of the checklist: Mario Antonioletti, The Software Sustainability Institute; Neil Chue Hong, The Software Sustainability Institute; Peter Cock, The James Hutton Institute; Steve Crouch, The Software Sustainability Institute; Robert Davey, The Genome Analysis Centre; Carole Goble, The Software Sustainability Institute; Mark Plumbley, Centre for Vision, Speech and signal Processing, University of Surrey; Chris Rawlings, Rothamsted Research; John Robinson, The Software Sustainability Institute.
 
