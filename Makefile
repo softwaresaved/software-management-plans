@@ -1,25 +1,26 @@
-DOC_PREFIX = SoftwareManagementPlanChecklist
-DATA_DIR = data
-DATA_YAML = $(DATA_DIR)/checklist.yaml
-YAML_TO_MD = src/yaml_to_markdown.py
-
-IMAGES = $(wildcard images/*.png)
+PAPER_PREFIX = SoftwareManagementPlanChecklist
+TEMPLATE_PREFIX = SoftwareManagementPlanTemplate
+YAML = data/checklist.yaml
 TEMPLATE = templates/doc.html
+IMAGES = $(wildcard images/*.png)
 CSS = css/style.css
+
+YAML_TO_MD = src/yaml_to_markdown.py
 PANDOC = pandoc
 WKHTMLTOPDF = wkhtmltopdf --disable-smart-shrinking
 LINK_CHECKER = linkchecker --check-extern --no-robots
 
-BUILD_DIR = build
-BUILD_MD_DIR = $(BUILD_DIR)/markdown
-BUILD_HTML_DIR = $(BUILD_DIR)/html
-BUILD_PDF_DIR = $(BUILD_DIR)/pdf
-BUILD_DOCX_DIR = $(BUILD_DIR)/docx
-BUILD_MD = $(BUILD_MD_DIR)/$(DOC_PREFIX).md
-BUILD_HTML = $(BUILD_HTML_DIR)/$(DOC_PREFIX).html
-BUILD_PDF = $(BUILD_PDF_DIR)/$(DOC_PREFIX).pdf
-BUILD_DOCX = $(BUILD_DOCX_DIR)/$(DOC_PREFIX).docx
-LINK_REPORT = $(BUILD_DIR)/link-check.txt
+BUILD = build
+BUILD_PAPER = $(BUILD)/papers
+HTML_PAPER_DIR = $(BUILD_PAPER)/html
+MD_PAPER = $(BUILD_PAPER)/$(PAPER_PREFIX).md
+HTML_PAPER = $(HTML_PAPER_DIR)/$(PAPER_PREFIX).html
+PDF_PAPER = $(BUILD_PAPER)/$(PAPER_PREFIX).pdf
+
+BUILD_TEMPLATE = $(BUILD)/templates
+DOCX_TEMPLATE= $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).docx
+
+LINK_REPORT = $(BUILD)/link-check.txt
 
 # Default action is to show what commands are available.
 .PHONY : all
@@ -28,46 +29,50 @@ all : commands
 ## clean       : Clean up temporary and auto-generated files.
 .PHONY : clean
 clean :
-	@rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD)
 	@rm -rf $$(find . -name '*~' -print)
 
-## markdown    : Create Markdown document.
-.PHONY : markdown
-markdown : $(BUILD_MD)
+## html        : Create HTML paper.
+.PHONY : html-paper
+html-paper : $(HTML_PAPER)
 
-## html        : Create HTML document.
-.PHONY : html
-html : $(BUILD_HTML)
+## pdf         : Create PDF paper.
+.PHONY : pdf-paper
+pdf-paper : $(PDF_PAPER)
 
-## pdf         : Create PDF document.
-.PHONY : pdf
-pdf : $(BUILD_PDF)
+## papers      : Create HTML and PDF papers.
+.PHONY : papers
+papers : html-paper pdf-paper
 
-## docx        : Create DOCX document.
-.PHONY : docx
-docx : $(BUILD_DOCX)
+## docx        : Create DOCX template.
+.PHONY : docx-template
+docx-template : $(DOCX_TEMPLATE)
 
-# Create Markdown document.
-$(BUILD_MD) : $(DATA_YAML) $(YAML_TO_MD)
-	mkdir -p $(BUILD_MD_DIR)
+## templates   : Create DOCX templates.
+.PHONY : templates
+templates : docx-template
+
+# Create Pandoc Markdown for creating paper.
+$(MD_PAPER) : $(YAML) $(YAML_TO_MD)
+	mkdir -p $(BUILD_PAPER)
 	python $(YAML_TO_MD) -f $< -o text > $@
 
-# Convert Markdown to HTML.
-$(BUILD_HTML) : $(BUILD_MD) $(IMAGES) $(TEMPLATE) $(CSS)
-	mkdir -p $(BUILD_HTML_DIR)
-	cp -r images/ $(BUILD_HTML_DIR)
-	cp -r css/ $(BUILD_HTML_DIR)
+# Convert Pandoc Markdown to HTML paper.
+$(HTML_PAPER) : $(MD_PAPER) $(IMAGES) $(TEMPLATE) $(CSS)
+	mkdir -p $(HTML_PAPER_DIR)
+	cp -r images/ $(HTML_PAPER_DIR)
+	cp -r css/ $(HTML_PAPER_DIR)
 	# $(PANDOC) -t html -o $@ $<
 	$(PANDOC) -t html -c $(CSS) --template=$(TEMPLATE) -o $@ $<
 
-# Convert HTML to PDF.
-$(BUILD_PDF) : $(BUILD_HTML)
-	mkdir -p $(BUILD_PDF_DIR)
+# Convert HTML to PDF paper.
+$(PDF_PAPER) : $(HTML_PAPER)
+	mkdir -p $(BUILD_PAPER)
 	$(WKHTMLTOPDF) $< $@
 
-# Convert Markdown to DOCX.
-$(BUILD_DOCX) : $(BUILD_MD)
-	mkdir -p $(BUILD_DOCX_DIR)
+# Convert Pandoc Markdown to DOCX template (WIP)
+$(DOCX_TEMPLATE) : $(MD_PAPER)
+	mkdir -p $(BUILD_TEMPLATE)
 	$(PANDOC) -t docx -o $@ $<
 
 ## check-links : Check HTML links.
@@ -89,23 +94,22 @@ commands : Makefile
 ## settings    : Show variables and settings.
 .PHONY : settings
 settings :
-	@echo 'DOC_PREFIX:' $(DOC_PREFIX)
-	@echo 'DATA_DIR:' $(DATA_DIR)
-	@echo 'DATA_YAML:' $(DATA_YAML)
-	@echo 'YAML_TO_MD' $(YAML_TO_MD)
-	@echo 'IMAGES:' $(IMAGES)
+	@echo 'PAPER_PREFIX:' $(PAPER_PREFIX)
+	@echo 'TEMPLATE_PREFIX:' $(TEMPLATE_PREFIX)
+	@echo 'YAML:' $(YAML)
 	@echo 'TEMPLATE:' $(TEMPLATE)
+	@echo 'IMAGES:' $(IMAGES)
 	@echo 'CSS:' $(CSS)
+	@echo 'YAML_TO_MD' $(YAML_TO_MD)
 	@echo 'PANDOC:' $(PANDOC)
 	@echo 'WKHTMLTOPDF:' $(WKHTMLTOPDF)
 	@echo 'LINK_CHECKER:' $(LINK_CHECKER)
-	@echo 'BUILD_DIR:' $(BUILD_DIR)
-	@echo 'BUILD_MD_DIR:' $(BUILD_MD_DIR)
-	@echo 'BUILD_MD:' $(BUILD_MD)
-	@echo 'BUILD_HTML_DIR:' $(BUILD_HTML_DIR)
-	@echo 'BUILD_HTML:' $(BUILD_HTML)
-	@echo 'BUILD_PDF_DIR:' $(BUILD_PDF_DIR)
-	@echo 'BUILD_PDF:' $(BUILD_PDF)
-	@echo 'BUILD_DOCX_DIR:' $(BUILD_DOCX_DIR)
-	@echo 'BUILD_DOCX:' $(BUILD_DOCX)
+	@echo 'BUILD:' $(BUILD)
+	@echo 'BUILD_PAPER:' $(BUILD_PAPER)
+	@echo 'HTML_PAPER_DIR:' $(HTML_PAPER_DIR)
+	@echo 'MD_PAPER:' $(MD_PAPER)
+	@echo 'HTML_PAPER:' $(HTML_PAPER)
+	@echo 'PDF_PAPER:' $(PDF_PAPER)
+	@echo 'BUILD_TEMPLATE:' $(BUILD_TEMPLATE)
+	@echo 'DOCX_TEMPLATE:' $(DOCX_TEMPLATE)
 	@echo 'LINK_REPORT:' $(LINK_REPORT)
