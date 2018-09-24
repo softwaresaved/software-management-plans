@@ -135,31 +135,21 @@ Copyright (C) 2000-2014 Bastian Kleineidam
 
 ---
 
-## Create Markdown checklist
+## Create HTML and PDF checklist papers
+
+Create HTML and PDF checklist papers for publication online or depositoing in Zenodo (for example):
 
 Run:
 
 ```bash
-make markdown
+make papers
 ```
 
-This will process the files in `data/` and create a Markdown checklist in `build/markdown/`.
+These will create an intermediate Pandoc Markdown checklist, then convert this into a HTML and PDF papers, in `build/papers/`.
 
 ---
 
-## Create HTML checklist
-
-Run:
-
-```bash
-make html
-```
-
-This will create a Markdown checklist, as above, then convert this into an HTML checklist in `build/html/`.
-
----
-
-## Check links
+## Check HTML links
 
 Run:
 
@@ -184,45 +174,31 @@ A full report is created in `build/link-check.txt`.
 
 ---
 
-## Create PDF checklist
+## Create Word checkist template
+
+Create Word (docx) checklist templates for publication online so researchers can use these in their projects.
 
 Run:
 
 ```bash
-make pdf
+make templates
 ```
 
-This will create an HTML checklist, as above, then convert this into a PDF checklist in `build/pdf/`.
-
-**Troubleshooting**
-
-If you see an error like:
-
-```
-terminate called after throwing an instance of 'std::bad_alloc'Page 2 of 5
-  what():  std::bad_alloc
-Makefile:57: recipe for target 'build/pdf/<FILENAME>.pdf' failed
-make: *** [build/pdf/<FILENAME>.pdf] Aborted (core dumped)
-make: *** Deleting file 'build/pdf/<FILENAME>.pdf'
-```
-
-then it may be that one or more image files used in the guide are too big and causing `wkhtmltopdf`, which creates PDFs, to run out of memory. Try resizing the images and try again.
+These will create an intermediate Pandoc Markdown checklist, then convert this into a Word template, in `build/templates/`.
 
 ---
 
-## Create Word checklist
+## See all available Make commands
 
 Run:
 
 ```bash
-make docx
+make
 ```
-
-This will create a Markdown checklist, as above, then convert this into a Word checklist in `build/docx/`.
 
 ---
 
-## Deposit in Zenodo (sample metadata, for information only)
+## Deposit PDF paper in Zenodo (sample metadata, for information only)
 
 Zenodo metadata:
 
