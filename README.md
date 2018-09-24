@@ -9,7 +9,13 @@ For more information see:
 * [Software Management Plans](https://www.software.ac.uk/software-management-plans) web page on The Software Sustainability Institute web site.
 * [DMPonline](http://dmponline.dcc.ac.uk/) service from [The Digital Curation Centre](https://www.dcc.ac.uk) which hosts Software Management Plan templates.
 
+## Published versions
+
+The Software Sustainability Institute. (2016). Checklist for a Software Management Plan. v0.1. doi:[10.5281/zenodo.1422657](https://doi.org/10.5281/zenodo.1422657). Available online: https://www.software.ac.uk/software-management-plans. Git tag [0.1](https://github.com/softwaresaved/software-management-plans/releases/tag/0.1)
+
 ---
+
+# Developer guide
 
 ## About these instructions
 
@@ -228,17 +234,17 @@ Zenodo metadata:
 
 ---
 
-## Contributing
+# Contributing
 
 See [Contributing](./CONTRIBUTING.md).
 
 ---
 
-## Copyright and Licence
+# Copyright and Licence
 
 Copyright (c) 2014-2018, The University of Edinburgh
 
-* Guidance (in markdown/ directory): Creative Commons Attribution 4.0 International
+* Guidance (in `markdown/` directory): Creative Commons Attribution 4.0 International
 * Source code: Apache License, Version 2.0, January 2004
 
 For full details, see [LICENCE](./LICENCE).
