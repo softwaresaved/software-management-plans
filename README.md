@@ -210,6 +210,18 @@ then it may be that one or more image files used in the guide are too big and ca
 
 ---
 
+## Create Word checklist
+
+Run:
+
+```bash
+make docx
+```
+
+This will create a Markdown checklist, as above, then convert this into a Word checklist in `build/docx/`.
+
+---
+
 ## Deposit in Zenodo (sample metadata, for information only)
 
 Zenodo metadata:

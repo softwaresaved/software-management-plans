@@ -1,7 +1,6 @@
 DOC_PREFIX = SoftwareManagementPlanChecklist
 DATA_DIR = data
 DATA_YAML = $(DATA_DIR)/checklist.yaml
-DATA_HDR_MD = $(DATA_DIR)/header.md
 YAML_TO_MD = src/yaml_to_markdown.py
 
 IMAGES = $(wildcard images/*.png)
@@ -49,10 +48,9 @@ pdf : $(BUILD_PDF)
 docx : $(BUILD_DOCX)
 
 # Create Markdown document.
-$(BUILD_MD) : $(DATA_YAML) $(DATA_HDR_MD) $(YAML_TO_MD)
+$(BUILD_MD) : $(DATA_YAML) $(YAML_TO_MD)
 	mkdir -p $(BUILD_MD_DIR)
-	cp $(DATA_HDR_MD) $@
-	python $(YAML_TO_MD) -f $< -o text >> $@
+	python $(YAML_TO_MD) -f $< -o text > $@
 
 # Convert Markdown to HTML.
 $(BUILD_HTML) : $(BUILD_MD) $(IMAGES) $(TEMPLATE) $(CSS)
@@ -94,7 +92,6 @@ settings :
 	@echo 'DOC_PREFIX:' $(DOC_PREFIX)
 	@echo 'DATA_DIR:' $(DATA_DIR)
 	@echo 'DATA_YAML:' $(DATA_YAML)
-	@echo 'DATA_HDR_MD:' $(DATA_HDR_MD)
 	@echo 'YAML_TO_MD' $(YAML_TO_MD)
 	@echo 'IMAGES:' $(IMAGES)
 	@echo 'TEMPLATE:' $(TEMPLATE)

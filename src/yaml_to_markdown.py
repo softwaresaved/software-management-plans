@@ -16,6 +16,18 @@ The YAML file must hold a single document. The document must be
 structured as follows:
 
     ---
+    metadata:
+      title: Title.
+      author: Author.
+      date-meta: Data for HTML meta-data tag.
+      citation-date: Human-readable date.
+      version: Version number.
+      doi: DOI of document being produced.
+      url: URL associated with document.
+      keywords: list of keywords (optional)
+    intro: Introductory text.
+    usage: Usage conditions.
+    acks: Acknowledgements.
     sections:
     - section: Section name e.g. About your software
       intro:
@@ -47,6 +59,15 @@ structured as follows:
 
 The following constraints hold for each field:
 
+* metadata: 1
+* title: 1
+* author: 1
+* date-meta: 1
+* citation-date: 1
+* version: 1
+* doi: 1
+* url: 1
+* keywords: 0+
 * sections: 1
 * section: 0+
 * intro: 0 or 1. If provided then its sequence must have 1+ entries.
@@ -71,9 +92,12 @@ The following constraints hold for each field:
 from argparse import ArgumentParser
 import yaml
 
+METADATA = "metadata"
+INTRO = "intro"
+USAGE = "usage"
+ACKS = "acks"
 SECTIONS = "sections"
 SECTION = "section"
-INTRO = "intro"
 QUESTIONS = "questions"
 QUESTION = "question"
 CONSIDER = "consider"
@@ -124,6 +148,16 @@ def write_markdown(document, output_format):
     elif output_format == FORMAT_LIST:
         write_markdown_list(sections)
     else:
+        print("---")
+        for (key, value) in list(document[METADATA].items()):
+            print((key + ": " + str(value)))
+        print("---\n")
+        print("## Introduction\n")
+        print((document[INTRO] + "\n"))
+        print("## Use of this checklist\n")
+        print((document[USAGE] + "\n"))
+        print("## Acknowledgements\n")
+        print((document[ACKS] + "\n"))
         write_markdown_text(sections)
 
 
