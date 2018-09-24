@@ -140,7 +140,7 @@ Copyright (C) 2000-2014 Bastian Kleineidam
 Run:
 
 ```bash
-make pdf
+make markdown
 ```
 
 This will process the files in `data/` and create a Markdown checklist in `build/markdown/`.

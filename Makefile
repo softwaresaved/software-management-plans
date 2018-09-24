@@ -1,7 +1,7 @@
+DOC_PREFIX = SoftwareManagementPlanChecklist
 DATA_DIR = data
-DATA_PREFIX = SMP_Checklist
-DATA_YAML = $(DATA_DIR)/$(DATA_PREFIX).yaml
-DATA_HDR_MD = $(DATA_DIR)/$(DATA_PREFIX).header.md
+DATA_YAML = $(DATA_DIR)/checklist.yaml
+DATA_HDR_MD = $(DATA_DIR)/header.md
 YAML_TO_MD = src/yaml_to_markdown.py
 
 IMAGES = $(wildcard images/*.png)
@@ -15,9 +15,9 @@ BUILD_DIR = build
 BUILD_MD_DIR = $(BUILD_DIR)/markdown
 BUILD_HTML_DIR = $(BUILD_DIR)/html
 BUILD_PDF_DIR = $(BUILD_DIR)/pdf
-BUILD_MD = $(BUILD_MD_DIR)/$(DATA_PREFIX).md
-BUILD_HTML = $(BUILD_HTML_DIR)/$(DATA_PREFIX).html
-BUILD_PDF = $(BUILD_PDF_DIR)/$(DATA_PREFIX).pdf
+BUILD_MD = $(BUILD_MD_DIR)/$(DOC_PREFIX).md
+BUILD_HTML = $(BUILD_HTML_DIR)/$(DOC_PREFIX).html
+BUILD_PDF = $(BUILD_PDF_DIR)/$(DOC_PREFIX).pdf
 LINK_REPORT = $(BUILD_DIR)/link-check.txt
 
 # Default action is to show what commands are available.
@@ -80,8 +80,8 @@ commands : Makefile
 ## settings    : Show variables and settings.
 .PHONY : settings
 settings :
+	@echo 'DOC_PREFIX:' $(DOC_PREFIX)
 	@echo 'DATA_DIR:' $(DATA_DIR)
-	@echo 'DATA_PREFIX:' $(DATA_PREFIX)
 	@echo 'DATA_YAML:' $(DATA_YAML)
 	@echo 'DATA_HDR_MD:' $(DATA_HDR_MD)
 	@echo 'YAML_TO_MD' $(YAML_TO_MD)
