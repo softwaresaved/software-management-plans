@@ -15,9 +15,11 @@ BUILD_DIR = build
 BUILD_MD_DIR = $(BUILD_DIR)/markdown
 BUILD_HTML_DIR = $(BUILD_DIR)/html
 BUILD_PDF_DIR = $(BUILD_DIR)/pdf
+BUILD_DOCX_DIR = $(BUILD_DIR)/docx
 BUILD_MD = $(BUILD_MD_DIR)/$(DOC_PREFIX).md
 BUILD_HTML = $(BUILD_HTML_DIR)/$(DOC_PREFIX).html
 BUILD_PDF = $(BUILD_PDF_DIR)/$(DOC_PREFIX).pdf
+BUILD_DOCX = $(BUILD_DOCX_DIR)/$(DOC_PREFIX).docx
 LINK_REPORT = $(BUILD_DIR)/link-check.txt
 
 # Default action is to show what commands are available.
@@ -42,6 +44,10 @@ html : $(BUILD_HTML)
 .PHONY : pdf
 pdf : $(BUILD_PDF)
 
+## docx        : Create DOCX document.
+.PHONY : docx
+docx : $(BUILD_DOCX)
+
 # Create Markdown document.
 $(BUILD_MD) : $(DATA_YAML) $(DATA_HDR_MD) $(YAML_TO_MD)
 	mkdir -p $(BUILD_MD_DIR)
@@ -60,6 +66,11 @@ $(BUILD_HTML) : $(BUILD_MD) $(IMAGES) $(TEMPLATE) $(CSS)
 $(BUILD_PDF) : $(BUILD_HTML)
 	mkdir -p $(BUILD_PDF_DIR)
 	$(WKHTMLTOPDF) $< $@
+
+# Convert Markdown to DOCX.
+$(BUILD_DOCX) : $(BUILD_MD)
+	mkdir -p $(BUILD_DOCX_DIR)
+	$(PANDOC) -t docx -o $@ $<
 
 ## check-links : Check HTML links.
 # linkchecker fails with exit code 1 if there are broken. The
@@ -92,7 +103,12 @@ settings :
 	@echo 'WKHTMLTOPDF:' $(WKHTMLTOPDF)
 	@echo 'LINK_CHECKER:' $(LINK_CHECKER)
 	@echo 'BUILD_DIR:' $(BUILD_DIR)
+	@echo 'BUILD_MD_DIR:' $(BUILD_MD_DIR)
 	@echo 'BUILD_MD:' $(BUILD_MD)
+	@echo 'BUILD_HTML_DIR:' $(BUILD_HTML_DIR)
 	@echo 'BUILD_HTML:' $(BUILD_HTML)
+	@echo 'BUILD_PDF_DIR:' $(BUILD_PDF_DIR)
 	@echo 'BUILD_PDF:' $(BUILD_PDF)
+	@echo 'BUILD_DOCX_DIR:' $(BUILD_DOCX_DIR)
+	@echo 'BUILD_DOCX:' $(BUILD_DOCX)
 	@echo 'LINK_REPORT:' $(LINK_REPORT)
