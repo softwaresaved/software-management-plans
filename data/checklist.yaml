@@ -3,10 +3,10 @@ metadata:
   title: Checklist for a Software Management Plan
   author: Michael Jackson
   date-meta: 2018-09-24
-  citation-date: 24 September 2018
+  date: 24 September 2018
   version: 0.1
   doi: 10.5281/zenodo.1422657
-  url: https://www.software.ac.uk/software-management-plans
+  website: https://www.software.ac.uk/software-management-plans
   keywords: [research software, software sustainability, software sustainability institute, software management plan]
 intro: It is easy to concentrate on short-term issues when developing research software. Getting publications, collaboration with others and the demands of a daily research routine can all conspire to prevent proper planning for the development of research software. A Software Management Plan can help us to define a set of structures and goals to help us to understand what we are going to write, who it is for, how we will get it to them, how will it help them, and how we will assess whether it has helped them. They also help us to understand what processes, resources and infrastructure we need and how we can use these to meet our own goals, in the short, medium and long term. They also encourage us to think about the future of our software once our project or funding period ends, and what our plans for its long-term sustainability are. This checklist is intended to help researchers write software management plans.
 usage: The Software Sustainability Institute provides this checklist on an "as-is" basis, makes no warranties regarding any information provided within and disclaims liability for damages resulting from using this information. You are solely responsible for determining the appropriateness of any advice and guidance provided and assume any risks associated with your use of this advice and guidance. If you have any questions regarding the right licence for your code or any other legal issues relating to it, consult with a professional for advice relating to your individual circumstances.

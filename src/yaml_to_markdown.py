@@ -23,7 +23,7 @@ structured as follows:
       citation-date: Human-readable date.
       version: Version number.
       doi: DOI of document being produced.
-      url: URL associated with document.
+      website: URL of web site associated with document.
       keywords: list of keywords (optional)
     intro: Introductory text.
     usage: Usage conditions.
@@ -66,7 +66,7 @@ The following constraints hold for each field:
 * citation-date: 1
 * version: 1
 * doi: 1
-* url: 1
+* website: 1
 * keywords: 0+
 * sections: 1
 * section: 0+
