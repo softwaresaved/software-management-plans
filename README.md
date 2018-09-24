@@ -137,7 +137,7 @@ Copyright (C) 2000-2014 Bastian Kleineidam
 
 ## Create HTML and PDF checklist papers
 
-Create HTML and PDF checklist papers for publication online or depositoing in Zenodo (for example):
+Create HTML and PDF checklist papers for publication online or depositing in Zenodo (for example):
 
 Run:
 
