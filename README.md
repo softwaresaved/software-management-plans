@@ -257,8 +257,8 @@ The Software Sustainability Institute provides the checklist on an "as-is" basis
 
 The checklist has its origins in:
 
-Chue Hong, Neil (2014) "Writing and using a software management plan", The Software Sustainability Institute [http://www.software.ac.uk/resources/guides/software-management-plans](http://www.software.ac.uk/resources/guides/software-management-plans>).
+Chue Hong, Neil (2014) "Writing and using a software management plan", The Software Sustainability Institute [http://www.software.ac.uk/resources/guides/software-management-plans](http://www.software.ac.uk/resources/guides/software-management-plans).
 
 The checklist has evolved in response to feedback from: Mario Antonioletti, Neil Chue Hong, Steve Crouch, Carole Goble, John Robinson, The Software Sustainability Institute; Peter Cock, The James Hutton Institute; Robert Davey, The Genome Analysis Centre; Mark Plumbley, Centre for Vision, Speech and signal Processing, University of Surrey; Chris Rawlings, Rothamsted Research.
 
-We also acknowledge the valuable assistance and generosity of [The Digital Curation Centre](http://www.dcc.ac.uk), particularly Sarah Jones and Marta Ribeiro, in advice on extending [DMPonline](http://dmponline.dcc.ac.uk/) service from [The Digital Curation Centre](https://www.dcc.ac.uk) to gost Software Management Plans.
+We also acknowledge the valuable assistance and generosity of [The Digital Curation Centre](http://www.dcc.ac.uk), particularly Sarah Jones and Marta Ribeiro, in supporting the writing of of software management plans within [DMPonline](http://dmponline.dcc.ac.uk/).
