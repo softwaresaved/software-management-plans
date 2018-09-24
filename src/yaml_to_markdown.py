@@ -10,7 +10,7 @@ and print it out in MarkDown.
       -h, --help            show this help message and exit
       -f FILE, --file FILE  YAML configuration file
       -o FORMAT, --output FORMAT
-                            Output format ('text' | 'table' | 'list')
+                            Output format ('paper' | 'template')
 
 The YAML file must hold a single document. The document must be
 structured as follows:
@@ -97,6 +97,8 @@ from argparse import ArgumentParser
 import yaml
 
 METADATA = "metadata"
+TITLE = "title"
+VERSION = "version"
 INTRO = "intro"
 USAGE = "usage"
 ACKS = "acks"
@@ -107,18 +109,8 @@ QUESTION = "question"
 CONSIDER = "consider"
 GUIDANCE = "guidance"
 
-FORMAT_TEXT = "text"
-FORMAT_TABLE = "table"
-FORMAT_LIST = "list"
-
-FUDGE = 20
-"""
-FUDGE as a fudge factor for first column for Pandoc-compatible grid
-table format in MarkDown (see Extension:grid_tables in
-http://pandoc.org/README.html), the format needed to include
-paragraphs and bulleted lists within table cells. No word in the first
-column of a grid table should be wider than this.
-"""
+FORMAT_PAPER = "paper"
+FORMAT_TEMPLATE = "template"
 
 
 def read_file(file_name):
@@ -142,15 +134,18 @@ def write_markdown(document, output_format):
 
     :param document: software management plan
     :type document: dict
-    :param output_format: one of FORMAT_TEXT (default), FORMAT_TABLE,
-    FORMAT_LIST
+    :param output_format: one of FORMAT_PAPER (default), FORMAT_TEMPLATE
     :type output_format: str or unicode
     """
     sections = document[SECTIONS]
-    if output_format == FORMAT_TABLE:
-        write_markdown_tables(sections)
-    elif output_format == FORMAT_LIST:
-        write_markdown_list(sections)
+    if output_format == FORMAT_TEMPLATE:
+        print("---")
+        print((TITLE + ": " +
+               document[METADATA][TITLE] +
+               "(" + str(document[METADATA][VERSION]) + ")" +
+               " Template"))
+        print("---\n")
+        write_markdown_template_body(sections)
     else:
         print("---")
         for (key, value) in list(document[METADATA].items()):
@@ -162,119 +157,45 @@ def write_markdown(document, output_format):
         print((document[USAGE] + "\n"))
         print("## Acknowledgements\n")
         print((document[ACKS] + "\n"))
-        write_markdown_text(sections)
+        write_markdown_paper_body(sections)
 
 
-def write_left_cell(text):
-    """
-    Write cell for left-hand column.
-
-    :param text: cell text
-    :type text: str or unicode
-    """
-    for word in text.split(" "):
-        print(("| " + word + ((FUDGE - len(word) - 2) * " ") + " | |"))
-
-
-def write_right_cell(empty_cell, text):
-    """
-    Write cell for right-hand column.
-
-    :param text: cell text
-    :type text: str or unicode
-    """
-    print((empty_cell + " " + text + " |"))
-
-
-def write_header():
-    """
-    Write checklist header.
-    """
-    checklist = "Checklist"
-    print(("| " + checklist + ((FUDGE - len(checklist) - 2) * " ") +
-           " | Guidance and Questions to consider |"))
-
-
-def write_markdown_tables(sections):
-    """
-    Process a list of dictionaries, each corresponding to a single
-    section of a software management plan, and output these as
-    Markdown, with each section being rendered as a table.
-    Each table has a row for each question and its associated
-    questions to consider and  guidance. If the section has
-    introductory paragraphs then these are rendered before the table.
-
-    This function uses FUDGE as a fudge factor for first column for
-    Pandoc-compatible grid table format in MarkDown.
-
-    :param sections: sections
-    :type sections: list of dict
-    """
-    row = "+" + ("-" * FUDGE) + "+" + ("-" * (80 - FUDGE - 4)) + "+"
-    header_row = "+" + ("=" * FUDGE) + "+" + ("=" * (80 - FUDGE - 4)) + "+"
-    empty_cell = "|" + (" " * FUDGE) + "|"
-    blank_row = empty_cell + " |"
-    for section in sections:
-        print(("## " + section[SECTION] + "\n"))
-        if INTRO in list(section.keys()):
-            for intro in section[INTRO]:
-                print((intro + "\n"))
-        print(row)
-        write_header()
-        print(header_row)
-        for question in section[QUESTIONS]:
-            write_left_cell(question[QUESTION])
-            if CONSIDER in list(question.keys()):
-                write_right_cell(empty_cell, "**Questions to consider:**")
-                print(blank_row)
-                for consider in question[CONSIDER]:
-                    write_right_cell(empty_cell, "* " + consider)
-                print(blank_row)
-            if GUIDANCE in list(question.keys()):
-                write_right_cell(empty_cell, "**Guidance:**")
-                print(blank_row)
-                for guidance in question[GUIDANCE]:
-                    if isinstance(guidance, list):
-                        for element in guidance:
-                            write_right_cell(empty_cell, "* " + element)
-                    else:
-                        write_right_cell(empty_cell, guidance)
-                    print(blank_row)
-            print(row)
-        print("\n")
-
-
-def write_markdown_list(sections):
-    """
-    Process a list of dictionaries, each corresponding to a
-    single section of a software management plan, and output these as
-    a Markdown table, with a row for each section name, and each
-    question within a section.
-
-    Associated questions to consider, guidance and introductory
-    paragraphs are not rendered.
-
-    Tables are in the Pandoc-compatible pipe table format in Markdown
-    (see Extension:pipe_tables in http://pandoc.org/README.html).
-
-    :param sections: sections
-    :type sections: list of dict
-    """
-    print(("| Checklist |"))
-    print(("|" + 80 * "-" + "|"))
-    for section in sections:
-        print(("| **" + section[SECTION] + "** |"))
-        for question in section[QUESTIONS]:
-            print(("| " + question[QUESTION] + " |"))
-
-
-def write_markdown_text(sections):
+def write_markdown_template_body(sections):
     """
     Process a list of dictionaries, each corresponding to a single
     section of a software management plan and output these as
-    Markdown, with each question being rendered as a text with its
-    questions to consider and guidance as bulleted lists and
-    paragraphs within that section.
+    Markdown.
+
+    * Each section title is represented as a level 2 heading.
+    * Each question is represented as a "strong" paragraph.
+    * Each question's questions to consider are represented as
+      bulleted lists within block quotes.
+
+    :param sections: sections
+    :type sections: list of dict
+    """
+    for section in sections:
+        print(("## " + section[SECTION] + "\n"))
+        for question in section[QUESTIONS]:
+            print(("**" + question[QUESTION] + "**\n"))
+            if CONSIDER in list(question.keys()):
+                print("> Questions to consider:\n")
+                for consider in question[CONSIDER]:
+                    print(("> * " + consider))
+                print(">\n")
+
+
+def write_markdown_paper_body(sections):
+    """
+    Process a list of dictionaries, each corresponding to a single
+    section of a software management plan and output these as
+    Markdown.
+
+    * Each section title is represented as a level 2 heading.
+    * Introductory text, if any, follows as paragraphs.
+    * Each question is represented as a level 3 heading.
+    * Each question's questions to consider and guidance are
+      represented as bulleted lists.
 
     :param sections: sections
     :type sections: list of dict
@@ -315,9 +236,9 @@ def parse_command_line_arguments():
                         dest="file",
                         help="YAML configuration file")
     parser.add_argument("-o", "--output",
-                        default=FORMAT_TEXT,
+                        default=FORMAT_PAPER,
                         dest="format",
-                        help="Output format ('text' | 'table' | 'list')")
+                        help="Output format ('paper' | 'template')")
     args = parser.parse_args()
     if not args.file:
         parser.error("Missing file name")
@@ -332,8 +253,7 @@ def yaml_to_markdown(file_name, output_format):
 
     :param file_name: file name
     :type file_name: str or unicode
-    :param output_format: one of FORMAT_TEXT (default), FORMAT_TABLE,
-    FORMAT_LIST
+    :param output_format: one of FORMAT_PAPER (default), FORMAT_TEMPLATE
     :type output_format: str or unicode
     """
     document = read_file(file_name)
