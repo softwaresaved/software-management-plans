@@ -26,29 +26,29 @@ LINK_REPORT = $(BUILD)/link-check.txt
 .PHONY : all
 all : commands
 
-## clean       : Clean up temporary and auto-generated files.
+## clean         : Clean up temporary and auto-generated files.
 .PHONY : clean
 clean :
 	@rm -rf $(BUILD)
 	@rm -rf $$(find . -name '*~' -print)
 
-## html        : Create HTML paper.
+## html-paper    : Create HTML paper.
 .PHONY : html-paper
 html-paper : $(HTML_PAPER)
 
-## pdf         : Create PDF paper.
+## pdf-paper     : Create PDF paper.
 .PHONY : pdf-paper
 pdf-paper : $(PDF_PAPER)
 
-## papers      : Create HTML and PDF papers.
+## papers        : Create HTML and PDF papers.
 .PHONY : papers
 papers : html-paper pdf-paper
 
-## docx        : Create DOCX template.
+## docx-template : Create DOCX template.
 .PHONY : docx-template
 docx-template : $(DOCX_TEMPLATE)
 
-## templates   : Create DOCX templates.
+## templates     : Create DOCX templates.
 .PHONY : templates
 templates : docx-template
 
@@ -75,23 +75,23 @@ $(DOCX_TEMPLATE) : $(MD_PAPER)
 	mkdir -p $(BUILD_TEMPLATE)
 	$(PANDOC) -t docx -o $@ $<
 
-## check-links : Check HTML links.
+## check-links   : Check HTML links.
 # linkchecker fails with exit code 1 if there are broken. The
 # Makefile will continue to exit the remaining action to filter
 # the link report even if linkchecker fails in this way.
 .PHONY : check-links
-check-links : $(HTML)
-	-$(LINK_CHECKER) -Ftext/$(LINK_REPORT) $(BUILD_HTML_DIR)/*.html
+check-links : $(HTML_PAPER)
+	-$(LINK_CHECKER) -Ftext/$(LINK_REPORT) $(HTML_PAPER_DIR)/*.html
 	@echo Extracting broken links from link report $(LINK_REPORT)
 	@echo Broken links:
 	@grep Real $(LINK_REPORT) | sort | uniq
 
-## commands    : Display available commands.
+## commands      : Display available commands.
 .PHONY : commands
 commands : Makefile
 	@sed -n 's/^##//p' $<
 
-## settings    : Show variables and settings.
+## settings      : Show variables and settings.
 .PHONY : settings
 settings :
 	@echo 'PAPER_PREFIX:' $(PAPER_PREFIX)
