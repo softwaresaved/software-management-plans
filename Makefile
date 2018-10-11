@@ -4,7 +4,8 @@ YAML = data/checklist.yaml
 HTML_LAYOUT = templates/doc.html
 IMAGES = $(wildcard images/*.png)
 CSS = css/style.css
-DOCX_STYLE = templates/Template.docx
+DOCX_STYLE = templates/reference.docx
+ODT_STYLE = templates/reference.odt
 
 YAML_TO_MD = src/yaml_to_markdown.py
 PANDOC = pandoc
@@ -21,6 +22,7 @@ PDF_PAPER = $(BUILD_PAPER)/$(PAPER_PREFIX).pdf
 BUILD_TEMPLATE = $(BUILD)/templates
 PANDOC_MD_TEMPLATE = $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).md
 DOCX_TEMPLATE= $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).docx
+ODT_TEMPLATE= $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).odt
 
 LINK_REPORT = $(BUILD)/link-check.txt
 
@@ -50,9 +52,13 @@ papers : html-paper pdf-paper
 .PHONY : docx-template
 docx-template : $(DOCX_TEMPLATE)
 
-## templates     : Create DOCX templates.
+## odt-template  : Create ODT template.
+.PHONY : odt-template
+odt-template : $(ODT_TEMPLATE)
+
+## templates     : Create DOCX and ODT templates.
 .PHONY : templates
-templates : docx-template
+templates : docx-template odt-template
 
 # Create Pandoc Markdown for creating paper.
 $(PANDOC_MD_PAPER) : $(YAML) $(YAML_TO_MD)
@@ -82,6 +88,11 @@ $(DOCX_TEMPLATE) : $(PANDOC_MD_TEMPLATE) $(DOCX_STYLE)
 	mkdir -p $(BUILD_TEMPLATE)
 	$(PANDOC) -t docx --reference-doc=$(DOCX_STYLE) -o $@ $<
 
+# Convert Pandoc Markdown to ODT template.
+$(ODT_TEMPLATE) : $(PANDOC_MD_TEMPLATE) $(ODT_STYLE)
+	mkdir -p $(BUILD_TEMPLATE)
+	$(PANDOC) -t odt --reference-odt=$(ODT_STYLE) -o $@ $<
+
 ## check-links   : Check HTML links.
 # linkchecker fails with exit code 1 if there are broken. The
 # Makefile will continue to exit the remaining action to filter
@@ -107,7 +118,7 @@ settings :
 	@echo 'HTML_LAYOUT:' $(HTML_LAYOUT)
 	@echo 'IMAGES:' $(IMAGES)
 	@echo 'CSS:' $(CSS)
-	@echo 'DOCX_STYLE' $(DOCX_STYLE)
+	@echo 'ODT_STYLE' $(ODT_STYLE)
 	@echo 'YAML_TO_MD' $(YAML_TO_MD)
 	@echo 'PANDOC:' $(PANDOC)
 	@echo 'WKHTMLTOPDF:' $(WKHTMLTOPDF)
@@ -121,4 +132,5 @@ settings :
 	@echo 'BUILD_TEMPLATE:' $(BUILD_TEMPLATE)
 	@echo 'PANDOC_MD_TEMPLATE:' $(PANDOC_MD_TEMPLATE)
 	@echo 'DOCX_TEMPLATE:' $(DOCX_TEMPLATE)
+	@echo 'ODT_TEMPLATE:' $(ODT_TEMPLATE)
 	@echo 'LINK_REPORT:' $(LINK_REPORT)
