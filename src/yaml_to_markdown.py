@@ -142,7 +142,7 @@ def write_markdown(document, output_format):
         print("---")
         print((TITLE + ": " +
                document[METADATA][TITLE] +
-               "(" + str(document[METADATA][VERSION]) + ")" +
+               " (" + str(document[METADATA][VERSION]) + ")" +
                " Template"))
         print("---\n")
         write_markdown_template_body(sections)
@@ -179,10 +179,11 @@ def write_markdown_template_body(sections):
         for question in section[QUESTIONS]:
             print(("**" + question[QUESTION] + "**\n"))
             if CONSIDER in list(question.keys()):
-                print("> Questions to consider:\n")
+                print("> Questions to consider:")
+                print(">")
                 for consider in question[CONSIDER]:
                     print(("> * " + consider))
-                print(">\n")
+                print("\n")
 
 
 def write_markdown_paper_body(sections):
