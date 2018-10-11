@@ -137,7 +137,7 @@ Copyright (C) 2000-2014 Bastian Kleineidam
 
 ## Create HTML and PDF checklist papers
 
-Create HTML and PDF checklist papers for publication online or depositing in Zenodo (for example):
+Create HTML and PDF checklist papers for publication online or depositing in Zenodo (for example).
 
 Run:
 
@@ -145,7 +145,7 @@ Run:
 make papers
 ```
 
-These will create an intermediate Pandoc Markdown checklist, then convert this into a HTML and PDF papers, in `build/papers/`.
+This creates an intermediate Pandoc Markdown checklist, then converts this into HTML and PDF papers. The papers are placed in `build/papers/`.
 
 ---
 
@@ -174,9 +174,9 @@ A full report is created in `build/link-check.txt`.
 
 ---
 
-## Create Word and OpenOffice/LibreOffice checkist templates
+## Create Markdown, Word and OpenOffice/LibreOffice checkist templates
 
-Create Word (docx) and OpenOffice/LibreOffice (odt) checklist templates for publication online so researchers can use these in their projects.
+Create Markdown (md), Word (docx) and OpenOffice/LibreOffice (odt) checklist templates for publication online so researchers can use these in their projects.
 
 Run:
 
@@ -184,7 +184,7 @@ Run:
 make templates
 ```
 
-These will create an intermediate Pandoc Markdown checklist, then convert this into Word and OpenOffice/LibreOffice templates, in `build/templates/`.
+This will create an intermediate Pandoc Markdown checklist, then convert this into Word and OpenOffice/LibreOffice templates, and it will also create a Markdown checklist. The templates are placed in `build/templates/`.
 
 ---
 

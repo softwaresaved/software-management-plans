@@ -20,7 +20,8 @@ HTML_PAPER = $(HTML_PAPER_DIR)/$(PAPER_PREFIX).html
 PDF_PAPER = $(BUILD_PAPER)/$(PAPER_PREFIX).pdf
 
 BUILD_TEMPLATE = $(BUILD)/templates
-PANDOC_MD_TEMPLATE = $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).md
+PANDOC_MD_TEMPLATE = $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).tmp.md
+MD_TEMPLATE = $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).md
 DOCX_TEMPLATE = $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).docx
 ODT_TEMPLATE = $(BUILD_TEMPLATE)/$(TEMPLATE_PREFIX).odt
 
@@ -48,6 +49,10 @@ pdf-paper : $(PDF_PAPER)
 .PHONY : papers
 papers : html-paper pdf-paper
 
+## md-template   : Create Markdown template.
+.PHONY : md-template
+md-template : $(MD_TEMPLATE)
+
 ## docx-template : Create DOCX template.
 .PHONY : docx-template
 docx-template : $(DOCX_TEMPLATE)
@@ -56,9 +61,9 @@ docx-template : $(DOCX_TEMPLATE)
 .PHONY : odt-template
 odt-template : $(ODT_TEMPLATE)
 
-## templates     : Create DOCX and ODT templates.
+## templates     : Create Markdown, DOCX and ODT templates.
 .PHONY : templates
-templates : docx-template odt-template
+templates : md-template docx-template odt-template
 
 # Create Pandoc Markdown for creating paper.
 $(PANDOC_MD_PAPER) : $(YAML) $(YAML_TO_MD)
@@ -79,6 +84,11 @@ $(PDF_PAPER) : $(HTML_PAPER)
 
 # Create Pandoc Markdown for creating template.
 $(PANDOC_MD_TEMPLATE) : $(YAML) $(YAML_TO_MD)
+	mkdir -p $(BUILD_TEMPLATE)
+	python $(YAML_TO_MD) -m -f $< -t template > $@
+
+# Create Markdown template.
+$(MD_TEMPLATE) : $(YAML) $(YAML_TO_MD)
 	mkdir -p $(BUILD_TEMPLATE)
 	python $(YAML_TO_MD) -f $< -t template > $@
 
@@ -130,6 +140,7 @@ settings :
 	@echo 'PDF_PAPER:' $(PDF_PAPER)
 	@echo 'BUILD_TEMPLATE:' $(BUILD_TEMPLATE)
 	@echo 'PANDOC_MD_TEMPLATE:' $(PANDOC_MD_TEMPLATE)
+	@echo 'MD_TEMPLATE:' $(MD_TEMPLATE)
 	@echo 'DOCX_TEMPLATE:' $(DOCX_TEMPLATE)
 	@echo 'ODT_TEMPLATE:' $(ODT_TEMPLATE)
 	@echo 'LINK_REPORT:' $(LINK_REPORT)

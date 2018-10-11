@@ -2,15 +2,15 @@
 
 """
 Read in YAML file with software management plan advice and guidance
-and print it out in MarkDown.
+and print it out in Markdown.
 
     usage: python yaml_to_markdown.py [-h] [-f FILE] [-t TYPE]
 
     optional arguments:
       -h, --help            show this help message and exit
+      -m, --markdown-hdr    Add Markdown header ('-t template' only)
       -f FILE, --file FILE  YAML configuration file
-      -t TYPE, --type TYPE
-                            Document type ('paper' | 'template')
+      -t TYPE, --type TYPE  Document type ('paper' | 'template')
 
 The YAML file must hold a single document. The document must be
 structured as follows:
@@ -188,16 +188,32 @@ def write_paper_body(sections):
                         print((guidance + "\n"))
 
 
-def write_template(document):
+def write_template(document, markdown_hdr=False):
     """
     Write out software management plan template as Markdown.
 
+    If a Markdown header is requested then the start of the
+    Markdown is:
+
+        ---
+        title: PROJECT-NAME Software Management Plan
+        ---
+
+    Otherwise, the start of the markdown is:
+
+        # PROJECT-NAME Software Management Plan
+
     :param document: software management plan
     :type document: dict
+    :param markdown_hdr: add header to Markdown with metadata.
+    :type bool: dict
     """
-    print("---")
-    print((TITLE + ": PROJECT-NAME Software Management Plan"))
-    print("---\n")
+    if markdown_hdr:
+        print("---")
+        print((TITLE + ": PROJECT-NAME Software Management Plan"))
+        print("---\n")
+    else:
+        print(("# PROJECT-NAME Software Management Plan\n"))
     write_template_body(document[SECTIONS])
 
 
@@ -236,6 +252,10 @@ def parse_command_line_arguments():
     :rtype: argparse.Namespace
     """
     parser = ArgumentParser("python yaml_to_markdown.py")
+    parser.add_argument("-m", "--markdown-hdr",
+                        action="store_true",
+                        dest="markdown_hdr",
+                        help="Add Markdown header ('-t template' only)")
     parser.add_argument("-f", "--file",
                         dest="file",
                         help="YAML configuration file")
@@ -249,24 +269,23 @@ def parse_command_line_arguments():
     return args
 
 
-def yaml_to_markdown(file_name, doc_type):
+def yaml_to_markdown(args):
     """
-    Set up command-line arguments and parse these, printing usage
-    information if there are any problems, or processing the YAML file
-    otherwise.
+    Process YAML file and output desired file.
 
-    :param file_name: file name
-    :type file_name: str or unicode
-    :param doc_type: one of PAPER (default), TEMPLATE
-    :type doc_type: str or unicode
+    :param args: command-line arguments.
+    :type args: argparse.Namespace
     """
+    file_name = args.file
+    doc_type = args.type
+    markdown_hdr = args.markdown_hdr
     document = read_file(file_name)
     if doc_type == TEMPLATE:
-        write_template(document)
+        write_template(document, markdown_hdr)
     else:
         write_paper(document)
 
 
 if __name__ == '__main__':
     command_line_args = parse_command_line_arguments()
-    yaml_to_markdown(command_line_args.file, command_line_args.type)
+    yaml_to_markdown(command_line_args)
