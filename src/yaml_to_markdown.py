@@ -140,10 +140,7 @@ def write_markdown(document, output_format):
     sections = document[SECTIONS]
     if output_format == FORMAT_TEMPLATE:
         print("---")
-        print((TITLE + ": " +
-               document[METADATA][TITLE] +
-               " (" + str(document[METADATA][VERSION]) + ")" +
-               " Template"))
+        print((TITLE + ": PROJECT-NAME Software Management Plan"))
         print("---\n")
         write_markdown_template_body(sections)
     else:
