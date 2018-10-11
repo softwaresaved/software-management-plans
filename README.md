@@ -174,7 +174,7 @@ A full report is created in `build/link-check.txt`.
 
 ---
 
-## Create Word and OpenOffice/LibreOffice checkist template
+## Create Word and OpenOffice/LibreOffice checkist templates
 
 Create Word (docx) and OpenOffice/LibreOffice (odt) checklist templates for publication online so researchers can use these in their projects.
 
