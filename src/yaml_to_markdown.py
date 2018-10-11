@@ -4,13 +4,13 @@
 Read in YAML file with software management plan advice and guidance
 and print it out in MarkDown.
 
-    usage: python yaml_to_markdown.py [-h] [-f FILE] [-o FORMAT]
+    usage: python yaml_to_markdown.py [-h] [-f FILE] [-t TYPE]
 
     optional arguments:
       -h, --help            show this help message and exit
       -f FILE, --file FILE  YAML configuration file
-      -o FORMAT, --output FORMAT
-                            Output format ('paper' | 'template')
+      -t TYPE, --type TYPE
+                            Document type ('paper' | 'template')
 
 The YAML file must hold a single document. The document must be
 structured as follows:
@@ -109,8 +109,8 @@ QUESTION = "question"
 CONSIDER = "consider"
 GUIDANCE = "guidance"
 
-FORMAT_PAPER = "paper"
-FORMAT_TEMPLATE = "template"
+PAPER = "paper"
+TEMPLATE = "template"
 
 
 def read_file(file_name):
@@ -128,62 +128,31 @@ def read_file(file_name):
     return document
 
 
-def write_markdown(document, output_format):
+def write_paper(document):
     """
-    Write out software management plan as Markdown.
+    Write out software management plan paper as Markdown.
 
     :param document: software management plan
     :type document: dict
-    :param output_format: one of FORMAT_PAPER (default), FORMAT_TEMPLATE
-    :type output_format: str or unicode
     """
-    sections = document[SECTIONS]
-    if output_format == FORMAT_TEMPLATE:
-        print("---")
-        print((TITLE + ": PROJECT-NAME Software Management Plan"))
-        print("---\n")
-        write_markdown_template_body(sections)
-    else:
-        print("---")
-        for (key, value) in list(document[METADATA].items()):
-            print((key + ": " + str(value)))
-        print("---\n")
-        print("## Introduction\n")
-        print((document[INTRO] + "\n"))
-        print("## Use of this checklist\n")
-        print((document[USAGE] + "\n"))
-        print("## Acknowledgements\n")
-        print((document[ACKS] + "\n"))
-        write_markdown_paper_body(sections)
+    print("---")
+    for (key, value) in list(document[METADATA].items()):
+        print((key + ": " + str(value)))
+    print("---\n")
+    print("## Introduction\n")
+    print((document[INTRO] + "\n"))
+    print("## Use of this checklist\n")
+    print((document[USAGE] + "\n"))
+    print("## Acknowledgements\n")
+    print((document[ACKS] + "\n"))
+    write_paper_body(document[SECTIONS])
 
 
-def write_markdown_template_body(sections):
+def write_paper_body(sections):
     """
-    Process a list of dictionaries, each corresponding to a single
-    section of a software management plan and output these as
-    Markdown.
+    Write out software management plan paper body as Markdown.
 
-    * Each section title is represented as a level 2 heading.
-    * Each question is represented as a "strong" paragraph.
-    * Each question's questions to consider are represented as
-      bulleted lists within block quotes.
-
-    :param sections: sections
-    :type sections: list of dict
-    """
-    for section in sections:
-        print(("## " + section[SECTION] + "\n"))
-        for question in section[QUESTIONS]:
-            print(("### " + question[QUESTION] + "\n"))
-            if CONSIDER in list(question.keys()):
-                print("Questions to consider:\n")
-                for consider in question[CONSIDER]:
-                    print((consider + "\n"))
-
-
-def write_markdown_paper_body(sections):
-    """
-    Process a list of dictionaries, each corresponding to a single
+    Process given list of dictionaries, each corresponding to a single
     section of a software management plan and output these as
     Markdown.
 
@@ -219,6 +188,45 @@ def write_markdown_paper_body(sections):
                         print((guidance + "\n"))
 
 
+def write_template(document):
+    """
+    Write out software management plan template as Markdown.
+
+    :param document: software management plan
+    :type document: dict
+    """
+    print("---")
+    print((TITLE + ": PROJECT-NAME Software Management Plan"))
+    print("---\n")
+    write_template_body(document[SECTIONS])
+
+
+def write_template_body(sections):
+    """
+    Write out software management plan template body as Markdown.
+
+    Process given list of dictionaries, each corresponding to a single
+    section of a software management plan and output these as
+    Markdown.
+
+    * Each section title is represented as a level 2 heading.
+    * Each question is represented as a level 3 paragraph.
+    * Each question's questions to consider are represented as
+      plain text on separate lines.
+
+    :param sections: sections
+    :type sections: list of dict
+    """
+    for section in sections:
+        print(("## " + section[SECTION] + "\n"))
+        for question in section[QUESTIONS]:
+            print(("### " + question[QUESTION] + "\n"))
+            if CONSIDER in list(question.keys()):
+                print("Questions to consider:\n")
+                for consider in question[CONSIDER]:
+                    print((consider + "\n"))
+
+
 def parse_command_line_arguments():
     """
     Parse command-line arguments, printing usage information if there
@@ -231,17 +239,17 @@ def parse_command_line_arguments():
     parser.add_argument("-f", "--file",
                         dest="file",
                         help="YAML configuration file")
-    parser.add_argument("-o", "--output",
-                        default=FORMAT_PAPER,
-                        dest="format",
-                        help="Output format ('paper' | 'template')")
+    parser.add_argument("-t", "--type",
+                        default=PAPER,
+                        dest="type",
+                        help="Document type ('paper' | 'template')")
     args = parser.parse_args()
     if not args.file:
         parser.error("Missing file name")
     return args
 
 
-def yaml_to_markdown(file_name, output_format):
+def yaml_to_markdown(file_name, doc_type):
     """
     Set up command-line arguments and parse these, printing usage
     information if there are any problems, or processing the YAML file
@@ -249,13 +257,16 @@ def yaml_to_markdown(file_name, output_format):
 
     :param file_name: file name
     :type file_name: str or unicode
-    :param output_format: one of FORMAT_PAPER (default), FORMAT_TEMPLATE
-    :type output_format: str or unicode
+    :param doc_type: one of PAPER (default), TEMPLATE
+    :type doc_type: str or unicode
     """
     document = read_file(file_name)
-    write_markdown(document, output_format)
+    if doc_type == TEMPLATE:
+        write_template(document)
+    else:
+        write_paper(document)
 
 
 if __name__ == '__main__':
     command_line_args = parse_command_line_arguments()
-    yaml_to_markdown(command_line_args.file, command_line_args.format)
+    yaml_to_markdown(command_line_args.file, command_line_args.type)

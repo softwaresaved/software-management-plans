@@ -63,14 +63,13 @@ templates : docx-template odt-template
 # Create Pandoc Markdown for creating paper.
 $(PANDOC_MD_PAPER) : $(YAML) $(YAML_TO_MD)
 	mkdir -p $(BUILD_PAPER)
-	python $(YAML_TO_MD) -f $< -o paper > $@
+	python $(YAML_TO_MD) -f $< -t paper > $@
 
 # Convert Pandoc Markdown to HTML paper.
 $(HTML_PAPER) : $(PANDOC_MD_PAPER) $(IMAGES) $(HTML_LAYOUT) $(CSS)
 	mkdir -p $(HTML_PAPER_DIR)
 	cp -r images/ $(HTML_PAPER_DIR)
 	cp -r css/ $(HTML_PAPER_DIR)
-	# $(PANDOC) -t html -o $@ $<
 	$(PANDOC) -t html -c $(CSS) --template=$(HTML_LAYOUT) -o $@ $<
 
 # Convert HTML to PDF paper.
@@ -81,7 +80,7 @@ $(PDF_PAPER) : $(HTML_PAPER)
 # Create Pandoc Markdown for creating template.
 $(PANDOC_MD_TEMPLATE) : $(YAML) $(YAML_TO_MD)
 	mkdir -p $(BUILD_TEMPLATE)
-	python $(YAML_TO_MD) -f $< -o template > $@
+	python $(YAML_TO_MD) -f $< -t template > $@
 
 # Convert Pandoc Markdown to DOCX template.
 $(DOCX_TEMPLATE) : $(PANDOC_MD_TEMPLATE) $(DOCX_STYLE)
