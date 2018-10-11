@@ -237,7 +237,6 @@ def write_template_body(sections):
         for question in section[QUESTIONS]:
             print(("### " + question[QUESTION] + "\n"))
             if CONSIDER in list(question.keys()):
-                print("Questions to consider:\n")
                 for consider in question[CONSIDER]:
                     print((consider + "\n"))
             else:
@@ -282,8 +281,6 @@ def write_markdown_template_body(sections):
         for question in section[QUESTIONS]:
             print(("### " + question[QUESTION] + "\n"))
             if CONSIDER in list(question.keys()):
-                print("> Questions to consider:")
-                print(">")
                 for consider in question[CONSIDER]:
                     print(("> * " + consider))
             else:
