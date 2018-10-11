@@ -11,7 +11,7 @@ For more information see:
 
 ## Published versions
 
-The Software Sustainability Institute. (2016). Checklist for a Software Management Plan. v0.1. doi:[10.5281/zenodo.1422657](https://doi.org/10.5281/zenodo.1422657). Available online: https://www.software.ac.uk/software-management-plans. Git tag [0.1](https://github.com/softwaresaved/software-management-plans/releases/tag/0.1)
+* The Software Sustainability Institute. (2016). Checklist for a Software Management Plan. v0.1. doi:[10.5281/zenodo.1422657](https://doi.org/10.5281/zenodo.1422657). Available online: https://www.software.ac.uk/software-management-plans. Git tag [0.1](https://github.com/softwaresaved/software-management-plans/releases/tag/0.1)
 
 ---
 
@@ -213,30 +213,6 @@ They were then customised so that:
 
 * Titles and level 1-3 headings are black, bold, non-italics.
 * Body Text / Text Body content, used for boiler-plate guidance in the templates, is surrounded by a border.
-
----
-
-## Deposit PDF paper in Zenodo (sample metadata, for information only)
-
-Zenodo metadata:
-
-* Communities: Zenodo
-* Upload type: Publication (for guides), Software (for source)
-* Publication type: Working paper
-* Click Digital Object Identifier => Reserve DOI
-* Publication date: YYYY-MM-DD
-* Title:
-* Authors: 
-* Description:
-* Version: X.Y
-* Keywords:
-  - research software
-  - research outputs
-  - software management plan
-  - software sustainability
-  - software sustainability institute
-* Additional notes: The Software Sustainability Institute is supported by EPSRC grant EP/H043160/1 and EPSRC/BBSRC and ESRC grant EP/N006410/1.
-* Funding: delete default entry.
 
 ---
 
