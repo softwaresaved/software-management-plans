@@ -174,9 +174,9 @@ A full report is created in `build/link-check.txt`.
 
 ---
 
-## Create Word checkist template
+## Create Word and OpenOffice/LibreOffice checkist template
 
-Create Word (docx) checklist templates for publication online so researchers can use these in their projects.
+Create Word (docx) and OpenOffice/LibreOffice (odt) checklist templates for publication online so researchers can use these in their projects.
 
 Run:
 
@@ -184,7 +184,7 @@ Run:
 make templates
 ```
 
-These will create an intermediate Pandoc Markdown checklist, then convert this into a Word template, in `build/templates/`.
+These will create an intermediate Pandoc Markdown checklist, then convert this into Word and OpenOffice/LibreOffice templates, in `build/templates/`.
 
 ---
 
@@ -195,6 +195,24 @@ Run:
 ```bash
 make
 ```
+
+---
+
+## Styles
+
+`templates/doc.html` and `css/styles.css` determine the style of HTML and PDF papers.
+
+`templates/reference.docx` and `templates/reference.odt` determine the style of Word and OpenOffice/LibreOffice templates. These were generated using the commands:
+
+```
+pandoc --print-default-data-file reference.odt > templates/reference.odt
+pandoc --print-default-data-file reference.docx > templates/reference.docx
+```
+
+They were then customised so that:
+
+* Titles and level 1-3 headings are black, bold, non-italics.
+* Body Text / Text Body content, used for boiler-plate guidance in the templates, is surrounded by a border.
 
 ---
 
