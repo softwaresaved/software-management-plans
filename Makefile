@@ -85,12 +85,12 @@ $(PDF_PAPER) : $(HTML_PAPER)
 # Create Pandoc Markdown for creating template.
 $(PANDOC_MD_TEMPLATE) : $(YAML) $(YAML_TO_MD)
 	mkdir -p $(BUILD_TEMPLATE)
-	python $(YAML_TO_MD) -m -f $< -t template > $@
+	python $(YAML_TO_MD) -f $< -t template > $@
 
 # Create Markdown template.
 $(MD_TEMPLATE) : $(YAML) $(YAML_TO_MD)
 	mkdir -p $(BUILD_TEMPLATE)
-	python $(YAML_TO_MD) -f $< -t template > $@
+	python $(YAML_TO_MD) -f $< -t markdown-template > $@
 
 # Convert Pandoc Markdown to DOCX template.
 $(DOCX_TEMPLATE) : $(PANDOC_MD_TEMPLATE) $(DOCX_STYLE)

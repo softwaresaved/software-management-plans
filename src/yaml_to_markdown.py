@@ -8,9 +8,9 @@ and print it out in Markdown.
 
     optional arguments:
       -h, --help            show this help message and exit
-      -m, --markdown-hdr    Add Markdown header ('-t template' only)
       -f FILE, --file FILE  YAML configuration file
-      -t TYPE, --type TYPE  Document type ('paper' | 'template')
+      -t TYPE, --type TYPE  Document type
+                            ('paper' | 'template' | 'markdown-template')
 
 The YAML file must hold a single document. The document must be
 structured as follows:
@@ -110,6 +110,7 @@ CONSIDER = "consider"
 GUIDANCE = "guidance"
 
 PAPER = "paper"
+MARKDOWN_TEMPLATE = "markdown-template"
 TEMPLATE = "template"
 
 
@@ -188,32 +189,26 @@ def write_paper_body(sections):
                         print((guidance + "\n"))
 
 
-def write_template(document, markdown_hdr=False):
+def write_template(document):
     """
     Write out software management plan template as Markdown.
 
-    If a Markdown header is requested then the start of the
-    Markdown is:
+    This Markdown is intended to be used as an intermediary before
+    onward conversion into another format e.g. to docx, odt or
+    html, using, for example, pandoc.
+
+    The Markdown starts with:
 
         ---
         title: PROJECT-NAME Software Management Plan
         ---
 
-    Otherwise, the start of the markdown is:
-
-        # PROJECT-NAME Software Management Plan
-
     :param document: software management plan
     :type document: dict
-    :param markdown_hdr: add header to Markdown with metadata.
-    :type bool: dict
     """
-    if markdown_hdr:
-        print("---")
-        print((TITLE + ": PROJECT-NAME Software Management Plan"))
-        print("---\n")
-    else:
-        print(("# PROJECT-NAME Software Management Plan\n"))
+    print("---")
+    print((TITLE + ": PROJECT-NAME Software Management Plan"))
+    print("---\n")
     write_template_body(document[SECTIONS])
 
 
@@ -230,6 +225,10 @@ def write_template_body(sections):
     * Each question's questions to consider are represented as
       plain text on separate lines.
 
+    This Markdown is intended to be used as an intermediary before
+    onward conversion into another format e.g. to docx, odt or
+    html, using, for example, pandoc.
+
     :param sections: sections
     :type sections: list of dict
     """
@@ -241,6 +240,55 @@ def write_template_body(sections):
                 print("Questions to consider:\n")
                 for consider in question[CONSIDER]:
                     print((consider + "\n"))
+            else:
+                # Insert non-breaking spaces into Markdown so that
+                # they are not ignored during downstream conversion.
+                print("&nbsp;\n\n&nbsp;\n\n&nbsp;\n\n")
+
+
+def write_markdown_template(document):
+    """
+    Write out software management plan template as Markdown.
+
+    This Markdown is intended to be used as a standalone
+    Markdown document.
+
+    :param document: software management plan
+    :type document: dict
+    """
+    print(("# PROJECT-NAME Software Management Plan\n"))
+    write_markdown_template_body(document[SECTIONS])
+
+
+def write_markdown_template_body(sections):
+    """
+    Write out software management plan template body as Markdown.
+
+    Process given list of dictionaries, each corresponding to a single
+    section of a software management plan and output these as
+    Markdown.
+
+    * Each section title is represented as a level 2 heading.
+    * Each question is represented as a level 3 paragraph.
+    * Each question's questions to consider are represented as
+      a bulleted list on separate lines, embedded within a block
+      quote.
+
+    :param sections: sections
+    :type sections: list of dict
+    """
+    for section in sections:
+        print(("## " + section[SECTION] + "\n"))
+        for question in section[QUESTIONS]:
+            print(("### " + question[QUESTION] + "\n"))
+            if CONSIDER in list(question.keys()):
+                print("> Questions to consider:")
+                print(">")
+                for consider in question[CONSIDER]:
+                    print(("> * " + consider))
+            else:
+                print("> ...")
+            print("")
 
 
 def parse_command_line_arguments():
@@ -252,10 +300,6 @@ def parse_command_line_arguments():
     :rtype: argparse.Namespace
     """
     parser = ArgumentParser("python yaml_to_markdown.py")
-    parser.add_argument("-m", "--markdown-hdr",
-                        action="store_true",
-                        dest="markdown_hdr",
-                        help="Add Markdown header ('-t template' only)")
     parser.add_argument("-f", "--file",
                         dest="file",
                         help="YAML configuration file")
@@ -278,10 +322,11 @@ def yaml_to_markdown(args):
     """
     file_name = args.file
     doc_type = args.type
-    markdown_hdr = args.markdown_hdr
     document = read_file(file_name)
     if doc_type == TEMPLATE:
-        write_template(document, markdown_hdr)
+        write_template(document)
+    elif doc_type == MARKDOWN_TEMPLATE:
+        write_markdown_template(document)
     else:
         write_paper(document)
 
