@@ -39,9 +39,9 @@ authors:
   - family-names: Ribeiro
     given-names: Marta
     affiliation: The Digital Curation Centre
-version: "0.1"
-doi: 10.5281/zenodo.1422657
-date-released: 2016-08-03
+version: "0.2"
+doi: 10.5281/zenodo.1460504
+date-released: 2018-10-12
 license: Apache-2.0
 repository-code: https://github.com/softwaresaved/software-management-plans
 keywords:

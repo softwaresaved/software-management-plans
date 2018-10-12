@@ -11,7 +11,8 @@ For more information see:
 
 ## Published versions
 
-* The Software Sustainability Institute. (2016). Checklist for a Software Management Plan. v0.1. doi:[10.5281/zenodo.1422657](https://doi.org/10.5281/zenodo.1422657). Available online: https://www.software.ac.uk/software-management-plans. Git tag [0.1](https://github.com/softwaresaved/software-management-plans/releases/tag/0.1)
+* The Software Sustainability Institute. (2018). Checklist for a Software Management Plan. v0.2. doi:[10.5281/zenodo.1460504](https://doi.org/10.5281/zenodo.1460504)
+* The Software Sustainability Institute. (2016). Checklist for a Software Management Plan. v0.1. doi:[10.5281/zenodo.1422657](https://doi.org/10.5281/zenodo.1422657)
 
 ---
 
