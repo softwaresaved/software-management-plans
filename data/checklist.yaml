@@ -2,10 +2,10 @@
 metadata:
   title: Checklist for a Software Management Plan
   author: Michael Jackson (ed.)
-  date-meta: 2018-10-12
-  date: 12 October 2018
-  version: 0.2
-  doi: 10.5281/zenodo.1460504
+  date-meta: 2018-NN-NN
+  date: NN NN 2018
+  version: 1.0
+  doi: 10.5281/zenodo.NNNN
   website: https://www.software.ac.uk/software-management-plans
   keywords: [research software, software sustainability, software sustainability institute, software management plan]
   licence: This work is published under a Creative Commons Attribution 4.0 International License (CC BY 4.0), [https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/).
@@ -13,7 +13,11 @@ metadata:
 changelog:
   # Record only notes for current version as date, version, doi inferred
   # from metadata above.
-  - notes: Changed checklist formatting and presentation.
+  - notes: Curtailed checklist to manageable form consisting of sections formerly in a minimal software management plan section, plus questions relating to support, other research objects and deposit and preservation.
+  - version: 0.2
+    doi: 10.5281/zenodo.1460504
+    date: 2018-10-12
+    notes: Changed checklist formatting and presentation.
   - version: 0.1
     doi: 10.5281/zenodo.1422657
     date: 2016-03-18
