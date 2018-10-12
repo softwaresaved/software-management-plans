@@ -168,15 +168,15 @@ def write_paper(document):
     print("## Changes\n")
     changes = document[CHANGELOG]
     change = changes[0]
-    print(("* " + str(document[METADATA][DATEMETA]) + " " +
-          str(document[METADATA][VERSION]) + " " +
-          document[METADATA][DOI] + " " +
-          change[NOTES]))
+    print(("* " + str(document[METADATA][VERSION]) + " (" +
+          str(document[METADATA][DATEMETA]) + ") " +
+          change[NOTES] + " " +
+          "doi:" + document[METADATA][DOI]))
     for change in changes[1:]:
-        print(("* " + str(change[DATE]) + " " +
-              str(change[VERSION]) + " " +
-              change[DOI] + " " +
-              change[NOTES]))
+        print(("* " + str(change[VERSION]) + " (" +
+              str(change[DATE]) + ") " +
+              change[NOTES] + " " +
+              "doi:" + change[DOI]))
     print("\n")
     write_paper_body(document[SECTIONS])
 
