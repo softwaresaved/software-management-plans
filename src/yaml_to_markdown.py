@@ -27,6 +27,15 @@ structured as follows:
       keywords: list of keywords.
       licence: licence information.
       licence-tag: licence tag, from SPDX, https://spdx.org/licenses/.
+    changelog:
+    # Record only notes for current version as date, version, doi inferred
+    # from metadata above.
+    - notes: Notes about current version.
+    - version: Previous version number.
+      doi: Previous version's DOI.
+      date: Previous version's publication date.
+      notes: Notes about previous version.
+    - ...
     intro: Introductory text.
     usage: Usage conditions.
     acks: Acknowledgements.
@@ -72,6 +81,11 @@ The following constraints hold for each field:
 * keywords: 0+
 * licence: 1
 * licence-tag: 1
+* changelog: 1, with 1+ entries.
+* notes: 1 per changelog entry.
+* version: 1 for all but first changelog entry.
+* doi: 1 for all but first changelog entry.
+* date: 1 for all but first changelog entry.
 * sections: 1
 * section: 0+
 * intro: 0 or 1. If provided then its sequence must have 1+ entries.
@@ -97,11 +111,16 @@ from argparse import ArgumentParser
 import yaml
 
 METADATA = "metadata"
+DATE = "date"
+DATEMETA = "date-meta"
+DOI = "doi"
 TITLE = "title"
 VERSION = "version"
 INTRO = "intro"
 USAGE = "usage"
 ACKS = "acks"
+CHANGELOG = "changelog"
+NOTES = "notes"
 SECTIONS = "sections"
 SECTION = "section"
 QUESTIONS = "questions"
@@ -146,6 +165,19 @@ def write_paper(document):
     print((document[USAGE] + "\n"))
     print("## Acknowledgements\n")
     print((document[ACKS] + "\n"))
+    print("## Changes\n")
+    changes = document[CHANGELOG]
+    change = changes[0]
+    print(("* " + str(document[METADATA][DATEMETA]) + " " +
+          str(document[METADATA][VERSION]) + " " +
+          document[METADATA][DOI] + " " +
+          change[NOTES]))
+    for change in changes[1:]:
+        print(("* " + str(change[DATE]) + " " +
+              str(change[VERSION]) + " " +
+              change[DOI] + " " +
+              change[NOTES]))
+    print("\n")
     write_paper_body(document[SECTIONS])
 
 
