@@ -43,30 +43,15 @@ structured as follows:
     acks: Acknowledgements.
     sections:
     - section: Section name e.g. About your software
-      intro:
-      - Context
+      consider:
+      - A sub-question to consider.
+      - Another sub-question to consider.
+      guidance:
+      - Some guidance.
       - Each entry corresponds to a paragraph.
-      questions:
-      - question: A question.
-        consider:
-        - A sub-question to consider.
-        - Another sub-question to consider.
-        guidance:
-        - Some guidance.
-        - Each entry corresponds to a paragraph.
-         -
-          - Bulleted list entry within guidance.
-          - Bulleted list entry within guidance.
-        - Some more guidance.
-      - question: A question with no guidance.
-        consider:
-        - A sub-question to consider.
-        - Another sub-question to consider.
-      - question: A question with no sub-questions.
-        guidance:
-        - Some guidance.
-        - Each entry corresponds to a paragraph.
-      - question: A question with no guidance or sub-questions.
+        - Bulleted list entry within guidance.
+        - Bulleted list entry within guidance.
+      - Some more guidance.
     - section: Another section name.
       ...
 
@@ -91,12 +76,9 @@ The following constraints hold for each field:
 * date: 1 for all but first changelog entry.
 * sections: 1
 * section: 0+
-* intro: 0 or 1. If provided then its sequence must have 1+ entries.
-* questions: 1
-* question: 1+
-* consider: 0 or 1 per question. If provided then its sequence must
+* consider: 0 or 1 per section. If provided then its sequence must
   have 1+ entries.
-* guidance: 0 or 1 per question. If provided then its sequence must
+* guidance: 0 or 1 per section. If provided then its sequence must
   have 1+ entries.
 * Colons, :, in text should be surrounded by text or, for a lead-in
   to a list use a ",". Otherwise YAML will interpret the colon as
@@ -126,8 +108,6 @@ CHANGELOG = "changelog"
 NOTES = "notes"
 SECTIONS = "sections"
 SECTION = "section"
-QUESTIONS = "questions"
-QUESTION = "question"
 CONSIDER = "consider"
 GUIDANCE = "guidance"
 
@@ -173,14 +153,14 @@ def write_paper(document):
     changes = document[CHANGELOG]
     change = changes[0]
     print(("* " + str(document[METADATA][VERSION]) + " (" +
-          str(document[METADATA][DATEMETA]) + ") " +
-          change[NOTES] + " " +
-          "doi:" + document[METADATA][DOI]))
+           str(document[METADATA][DATEMETA]) + ") " +
+           change[NOTES] + " " +
+           "doi:" + document[METADATA][DOI]))
     for change in changes[1:]:
         print(("* " + str(change[VERSION]) + " (" +
-              str(change[DATE]) + ") " +
-              change[NOTES] + " " +
-              "doi:" + change[DOI]))
+               str(change[DATE]) + ") " +
+               change[NOTES] + " " +
+               "doi:" + change[DOI]))
     print("\n")
     write_paper_body(document[SECTIONS])
 
@@ -194,9 +174,7 @@ def write_paper_body(sections):
     Markdown.
 
     * Each section title is represented as a level 2 heading.
-    * Introductory text, if any, follows as paragraphs.
-    * Each question is represented as a level 3 heading.
-    * Each question's questions to consider and guidance are
+    * Each sections's questions to consider and guidance are
       represented as bulleted lists.
 
     :param sections: sections
@@ -204,25 +182,20 @@ def write_paper_body(sections):
     """
     for section in sections:
         print(("## " + section[SECTION] + "\n"))
-        if INTRO in list(section.keys()):
-            for intro in section[INTRO]:
-                print((intro + "\n"))
-        for question in section[QUESTIONS]:
-            print(("### " + question[QUESTION] + "\n"))
-            if CONSIDER in list(question.keys()):
-                print("**Questions to consider:**\n")
-                for consider in question[CONSIDER]:
-                    print(("* " + consider))
-                print("")
-            if GUIDANCE in list(question.keys()):
-                print(("**Guidance:**\n"))
-                for guidance in question[GUIDANCE]:
-                    if isinstance(guidance, list):
-                        for element in guidance:
-                            print(("* " + element))
-                        print("")
-                    else:
-                        print((guidance + "\n"))
+        if CONSIDER in list(section.keys()):
+            print("**Questions to consider:**\n")
+            for consider in section[CONSIDER]:
+                print(("* " + consider))
+            print("")
+        if GUIDANCE in list(section.keys()):
+            print(("**Guidance:**\n"))
+            for guidance in section[GUIDANCE]:
+                if isinstance(guidance, list):
+                    for element in guidance:
+                        print(("* " + element))
+                    print("")
+                else:
+                    print((guidance + "\n"))
 
 
 def write_template(document):
@@ -257,8 +230,7 @@ def write_template_body(sections):
     Markdown.
 
     * Each section title is represented as a level 2 heading.
-    * Each question is represented as a level 3 paragraph.
-    * Each question's questions to consider are represented as
+    * Each section's questions to consider are represented as
       plain text on separate lines.
 
     This Markdown is intended to be used as an intermediary before
@@ -270,15 +242,13 @@ def write_template_body(sections):
     """
     for section in sections:
         print(("## " + section[SECTION] + "\n"))
-        for question in section[QUESTIONS]:
-            print(("### " + question[QUESTION] + "\n"))
-            if CONSIDER in list(question.keys()):
-                for consider in question[CONSIDER]:
-                    print((consider + "\n"))
-            else:
-                # Insert non-breaking spaces into Markdown so that
-                # they are not ignored during downstream conversion.
-                print("&nbsp;\n\n&nbsp;\n\n&nbsp;\n\n")
+        if CONSIDER in list(section.keys()):
+            for consider in section[CONSIDER]:
+                print((consider + "\n"))
+        else:
+            # Insert non-breaking spaces into Markdown so that
+            # they are not ignored during downstream conversion.
+            print("&nbsp;\n\n&nbsp;\n\n&nbsp;\n\n")
 
 
 def write_markdown_template(document):
@@ -304,8 +274,7 @@ def write_markdown_template_body(sections):
     Markdown.
 
     * Each section title is represented as a level 2 heading.
-    * Each question is represented as a level 3 paragraph.
-    * Each question's questions to consider are represented as
+    * Each section's questions to consider are represented as
       a bulleted list on separate lines, embedded within a block
       quote.
 
@@ -314,14 +283,12 @@ def write_markdown_template_body(sections):
     """
     for section in sections:
         print(("## " + section[SECTION] + "\n"))
-        for question in section[QUESTIONS]:
-            print(("### " + question[QUESTION] + "\n"))
-            if CONSIDER in list(question.keys()):
-                for consider in question[CONSIDER]:
-                    print(("> * " + consider))
-            else:
-                print("> ...")
-            print("")
+        if CONSIDER in list(section.keys()):
+            for consider in section[CONSIDER]:
+                print(("> * " + consider))
+        else:
+            print("> ...")
+        print("")
 
 
 def parse_command_line_arguments():
