@@ -12,33 +12,42 @@ authors:
   - family-names: Chue Hong
     given-names: Neil
     affiliation: The Software Sustainability Institute
-  - family-names: Crouch
-    given-names: Steve
-    affiliation: The Software Sustainability Institute
-  - family-names: Goble
-    given-names: Carole
-    affiliation: The Software Sustainability Institute
-  - family-names: Robinson
-    given-names: John
-    affiliation: The Software Sustainability Institute
   - family-names: Cock
     given-names: Peter
     affiliation: The James Hutton Institute
+  - family-names: Crouch
+    given-names: Steve
+    affiliation: The Software Sustainability Institute
   - family-names: Davey
     given-names: Robert
     affiliation: The Genome Analysis Centre
+  - family-names: Goble
+    given-names: Carole
+    affiliation: The Software Sustainability Institute
+  - family-names: Jones
+    given-names: Catherine
+    affiliation: STFC
+  - family-names: Jones
+    given-names: Sarah
+    affiliation: The Digital Curation Centre
+  - family-names: Leinweber
+    given-names: Katrin
+    affiliation: TIBHannover
   - family-names: Plumbley
     given-names: Mark
     affiliation: Centre for Vision, Speech and Signal Processing, University of Surrey
   - family-names: Rawlings
     given-names: Chris
     affiliation: Rothamsted Research
-  - family-names: Jones
-    given-names: Sarah
-    affiliation: The Digital Curation Centre
   - family-names: Ribeiro
     given-names: Marta
     affiliation: The Digital Curation Centre
+  - family-names: Robinson
+    given-names: John
+    affiliation: The Software Sustainability Institute
+  - family-names: Sufi
+    given-names: Shoaib
+    affiliation: The Software Sustainability Institute
 version: "1.0"
 doi: 10.5281/zenodo.NNNN
 date-released: 2018-NN-NN
