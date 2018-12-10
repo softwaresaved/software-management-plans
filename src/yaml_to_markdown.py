@@ -36,7 +36,9 @@ structured as follows:
       date: Previous version's publication date.
       notes: Notes about previous version.
     - ...
-    intro: Introductory text.
+    intro:
+    - Introductory text.
+    - ...
     usage: Usage conditions.
     acks: Acknowledgements.
     sections:
@@ -83,6 +85,7 @@ The following constraints hold for each field:
 * licence-tag: 1
 * changelog: 1, with 1+ entries.
 * notes: 1 per changelog entry.
+* intro: 1, with 1+ entries.
 * version: 1 for all but first changelog entry.
 * doi: 1 for all but first changelog entry.
 * date: 1 for all but first changelog entry.
@@ -160,7 +163,8 @@ def write_paper(document):
         print((key + ": " + str(value)))
     print("---\n")
     print("## Introduction\n")
-    print((document[INTRO] + "\n"))
+    for intro in document[INTRO]:
+        print((intro + "\n"))
     print("## Use of this checklist\n")
     print((document[USAGE] + "\n"))
     print("## Acknowledgements\n")
