@@ -49,8 +49,8 @@ authors:
     given-names: Shoaib
     affiliation: The Software Sustainability Institute
 version: "1.0"
-doi: 10.5281/zenodo.NNNN
-date-released: 2018-NN-NN
+doi: 10.5281/zenodo.2159713
+date-released: 2018-12-10
 license: Apache-2.0
 repository-code: https://github.com/softwaresaved/software-management-plans
 keywords:
@@ -67,4 +67,4 @@ references:
     title: Writing and using a software management plan
     url: http://www.software.ac.uk/resources/guides/software-management-plans
     year: 2014
-    date-accessed: 2018-09-24
+    date-accessed: 2018-12-10
