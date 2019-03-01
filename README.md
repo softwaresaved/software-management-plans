@@ -217,6 +217,7 @@ make
 ---
 
 ## Styles
+**Note:** read this whole section before you run any of the commands. It shows you how to change the template formatting. If you are happy with the current formatting then there is no need to run the ``pandoc`` commands below.
 
 `templates/doc.html` and `css/styles.css` determine the style of HTML and PDF papers.
 
