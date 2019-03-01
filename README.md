@@ -144,6 +144,14 @@ Copyright (C) 2000-2014 Bastian Kleineidam
 ```
 
 ---
+## Checkout the repository
+You need to checkout the repository and then cd into the right directory (assumes git is installed and working)
+
+```bash
+git clone https://github.com/softwaresaved/software-management-plans.git
+cd software-management-plans
+```
+---
 
 ## Create HTML and PDF checklist papers
 
