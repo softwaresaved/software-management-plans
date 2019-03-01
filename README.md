@@ -118,6 +118,14 @@ Install Microsoft TrueType core fonts:
 apt-get install ttf-mscorefonts-installer
 ```
 
+### Python dev
+This needs to be installed otherwise ```python setup.py install``` won't work below
+(pre-pend with sudo if your setup requires this)
+
+```bash
+sudo apt-get install python-dev
+```
+
 ### linkchecker
 
 Install [linkchecker](https://github.com/linkchecker/linkchecker) 9.4:
