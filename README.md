@@ -123,7 +123,7 @@ This needs to be installed otherwise ```python setup.py install``` won't work be
 (pre-pend with sudo if your setup requires this)
 
 ```bash
-sudo apt-get install python-dev
+apt-get install python-dev
 ```
 
 ### linkchecker
