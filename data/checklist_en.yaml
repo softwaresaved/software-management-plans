@@ -78,7 +78,7 @@ sections:
   - Where will you publish information about the nature and level of support available?
   - Will users be able to see what other users have asked and the associated answers?
   guidance:
-  - No one has a right to expect support for freely provided software. However, if you release your software, or make it available for use, then you will get questions about how to use it. An ignored request for help or advice, accidental or not, can lead to a disgruntled user who may bad-mouth your software or you or merely stop using it. 
+  - No one has a right to expect support for freely provided software. However, if you release your software, or make it available for use, then you will get questions about how to use it. An ignored request for help or advice, accidental or not, can lead to a disgruntled user who may bad-mouth your software or you or merely stop using it.
   - Responding to requests for help does not imply that you must spend time in fixing bugs or implementing features when they ask, it merely acknowledges that you are aware that they got in touch.
   - How much effort you or your group have available to support users will be up to you. You are also free to choose to provide no support if you do not have the time or effort available. It is always good to make clear what, if any, support you will provide clear on your website or in your documentation, e.g. "we will reply to all e-mails within a week and will let you know when, or if, we can address your issue". A user will always want their problem to be solved as quickly as possible, and may become disgruntled, and might even stop being a user, if this is not the case. If you are clear and honest about the level of support you can provide, then they have fewer grounds for complaint.
   - If you can offer help and support then there are many ways in which you can have your users request help and support, including:an e-mail to you or to an e-mail list or forum, or creating an issue in a ticketing or issue tracking system (<https://en.wikipedia.org/wiki/Issue_tracking_system>).
@@ -93,7 +93,7 @@ sections:
   - What are the foreseen benefits for each type of user?
   guidance:
   - When developing research software, it is good to be able to explain how it will contribute to research, whether this is research to be done by yourself or by others using your research software.
-- section: How will your software relate to other research objects? 
+- section: How will your software relate to other research objects?
   consider:
   - Which published research objects relate to your research software?
   - Are there published papers that describe the research that your software will enable?
@@ -118,7 +118,7 @@ sections:
   - Consider providing a CITATION.cff file with your source code, with your citation expressed in the Citation File Format (CFF) (<https://citation-file-format.github.io/>).
   - See the FORCE11 Software Citation Working Group' Software Citation Principles (<https://www.force11.org/software-citation-principles>) for more information on the value and uses of software citation.
   - Meeting users at conferences and workshops, contacting them via email, and creating short questionnaires (e.g. via Jisc Online Surveys (<https://www.jisc.ac.uk/online-surveys>) distributed via your website or Twitter, all are effective ways to gather information on how users have used, and have benefited from, your software.
-- section: Where will you deposit your software to guarantee its long-term availability? 
+- section: Where will you deposit your software to guarantee its long-term availability?
   consider:
   - Will you deposit releases of your software into a digital repository?
   - What digital repositories are appropriate for you to use?

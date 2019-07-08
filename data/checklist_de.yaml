@@ -1,0 +1,143 @@
+---
+metadata:
+  title: Checkliste für einen Software-Management-Plan
+  author: Michael Jackson, Ronny Gey (ed.)
+  date-meta: 2019-07-08
+  date: 08 July 2019
+  version: 1.0.1
+  doi: 10.5281/zenodo.2159713 #change!
+  website: https://www.software.ac.uk/software-management-plans #change!
+  keywords: [research software, software sustainability, software sustainability institute, software management plan]
+  licence: This work is published under a Creative Commons Attribution 4.0 International License (CC BY 4.0), [https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/).
+  licence-tag: CC-BY-4.0
+changelog:
+  # Record only notes for current version as date, version, doi inferred
+  # from metadata above.
+  - notes: Based on the English version of the Software Sustainability Institute [https://www.software.ac.uk/software-management-plans] [https://doi.org/10.5281/zenodo.2159713]
+  - version: 1.0
+    doi: 10.5281/zenodo.2159713
+    date: 2019-05-20
+    notes: Curtailed checklist to manageable form consisting of sections formerly in a minimal software management plan section, plus questions relating to support, other research objects and deposit and preservation.
+  - version: 0.2
+    doi: 10.5281/zenodo.1460504
+    date: 2018-10-12
+    notes: Changed checklist formatting and presentation.
+  - version: 0.1
+    doi: 10.5281/zenodo.1422657
+    date: 2016-03-18
+    notes: First draft.
+
+intro:
+  - Forschungssoftware kann vielerlei Gestalt annehmen. Sie kann aus 50 Zeilen Bash-Shell-Skript zum Manipulieren und Filtern von Dateien, aus einem 100 Zeilen R-Skript zum Ausführen einer bioinformatischen Analyse, aus 10.000 Zeilen Java für die medizinische Bildanalyse oder aus 100.000 Zeilen Fortran für die numerische Strömungssimulation bestehen. Forschungssoftware kann in Skriptsprachen wie Unix-Shell, Python, R oder MATLAB oder in "traditionellen" Programmiersprachen wie C, C++, Fortran oder Java geschrieben sein. Egal in welcher Form Forschungssoftware daher kommt, sie ist ein integraler Bestandteil des modernen Forschungsökosystems.
+  - Bei der Entwicklung von Forschungssoftware passiert es immer wieder, dass sich nur auf bestimmte, vordergründig forschungsrelevante Ziele und Aktivitäten konzentriert wird, wie z.B. die Zusammenarbeit mit anderen Forschern, das Schreiben von Papieren, die Teilnahme an Konferenzen und die Beantragung von Fördermitteln. Die Anforderungen der täglichen Forschungspraxis können in der Summe dazu führen, eine korrekte Planung der Entwicklung von Forschungssoftware zu verhindern.
+  - Ein Software-Management-Plan (SMP) kann Ihnen helfen, eine Reihe von Strukturen und Zielen zu definieren, um besser zu verstehen, welche Forschungssoftware Sie entwickeln wollen; für wen die Software bestimmt ist (auch wenn sie nur für Sie selbst bestimmt ist); wie Sie Ihre Software an die beabsichtigten Benutzer weiterreichen werden; wie sie ihnen helfen wird; und wie Sie beurteilen werden, ob sie ihnen geholfen und zur Forschung beigetragen hat. Ein SMP hilft Ihnen außerdem zu verstehen, wie Sie die Nutzer ihrer Forschungssoftware unterstützen können, wie sich Ihre Software auf andere Artefakte in Ihrem Forschungsökosystem bezieht und wie Sie sicherstellen, dass Ihre Software über die Laufzeit Ihres aktuellen Projekts hinaus verfügbar bleibt.
+  - Obwohl ein SMP den größten Nutzen bringt, wenn ein Entwicklungsprojekt gestartet wird, hat es doch auch Vorteile, wenn man auch einen Plan für ein bereits laufendes Projekt erstellt. Ein SMP bietet die Möglichkeit, bereits beschlossene Eigenschaften der Forschungssoftware so zusammenzufassen, dass sich zusätzliche Aspekte oder Optionen aufzeigen lassen, die zu Beginn des Projekts nicht berücksichtigt wurden oder nicht anwendbar waren.
+  - Diese Checkliste hilft Ihnen, einen SMP zu schreiben. Sie besteht aus einzelnen Abschnitten, die die Schlüsselelemente eines SMPs abdecken. In jedem Abschnitt werden Fragen gestellt, die Ihnen beim Vervollständigen helfen werden. Ergänzende Hinweise und Links zu anderen Ressourcen werden ebenfalls angeboten. Nicht alle Fragen sind für alle Projekte relevant und wie weit eine bestimmte Frage beantwortet werden kann, hängt sowohl von der Art Ihrer Forschungssoftware als auch vom aktuellen Entwicklungsstand ab. Betrachten Sie Ihren SMP als ein 'lebendes' Dokument, das Sie im Laufe der Entwicklung Ihrer Forschungssoftware hin und wieder überprüfen und überarbeiten sollten.
+
+usage: Das Software Sustainability Institute stellt diese Checkliste "wie besehen" zur Verfügung. Sie übernimmt keine Gewährleistung für die darin enthaltenen Informationen und lehnt die Haftung für Schäden ab, die sich aus der Verwendung dieser Informationen ergeben. Sie sind allein dafür verantwortlich, die bereitgestellten Ratschläge auf ihre Angemessenheit zu überprüfen und tragen alle Risiken, die mit der Nutzung dieser Ratschläge und Leitlinien verbunden sind.
+
+acks: Diese Checkliste wurde zum ersten Mal erwähnt in Chue Hong, Neil (2014) "Writing and using a software management plan", The Software Sustainability Institute[https://www.software.ac.uk/resources/guides/software-management-plans](https://www.software.ac.uk/resources/guides/software-management-plans), 2014. Die folgenden Personen gaben wertvolle Ratschläge, die sowohl zum Inhalt als auch zur Form dieser Checkliste beitrugen - Mario Antonioletti, The Software Sustainability Institute; Neil Chue Hong, The Software Sustainability Institute; Peter Cock, The James Hutton Institute; Steve Crouch, The Software Sustainability Institute; Robert Davey, The Genome Analysis Centre; Carole Goble, The Software Sustainability Institute; Catherine Jones, STFC; Sarah Jones, The Digital Curation Centre; Katrin Leinweber, Technische Informationsbibliothek; Mark Plumbley, Centre for Vision, Speech and Signal Processing, University of Surrey; Chris Rawlings, Rothamsted Research; Marta Ribeiro, The Digital Curation Centre; John Robinson, The Software Sustainability Institute; Shoaib Sufi, The Software Sustainability Institute.
+sections:
+- section: Welche Art von Software werden Sie entwickeln?
+  consider:
+  - Entwickeln Sie eine von Grund auf neue Software? Wenn ja, was wird Ihre Software tun?
+  - Wollen Sie bestehende Software, die Sie selbst oder andere geschrieben haben, refactoren, erweitern, optimieren oder parallelisieren? Wenn ja, was sind die wesentlichen Änderungen, die Sie vornehmen wollen?
+  - Wird Ihre Software einen Namen haben oder hat bereits einen? Ist dieser Name einzigartig und aussagekräftig und verstößt nicht gegen bestehende Markenrechte anderer?
+  Hinweise:
+  - Wenn Sie einen Namen für Ihre Software wählen möchten, lesen Sie bitte den Abschnitt "Auswahl von Projekt- und Produktnamen" des Software Sustainability Institute (<https://software.ac.uk/resources/guides/choosing-project-and-product-names>).
+- section: Wer sind die vorgesehenen Benutzer Ihrer Software?
+  consider:
+  - Gibt es nur eine Art von Benutzer oder gibt es mehrere?
+  - Ist Ihre Software für Einsteiger in Ihr Forschungsgebiet, für Fortgeschrittene oder für Experten auf Ihrem Gebiet?
+  - Welche Fähigkeiten in der Softwareinstallation und -konfiguration sowie Kenntnisse und Erfahrungen benötigen Ihre Benutzer? Müssen Ihre Nutzer mit der Erstellung und Installation von Software über die Kommandozeile vertraut sein?
+  - Welche Fähigkeiten, Kenntnisse und Erfahrungen in der Softwareentwicklung werden Ihre Anwender benötigen? Müssen sie ihren eigenen Code schreiben, um Ihre Software nutzen zu können?
+  - Welche gängigen Betriebssysteme, Webbrowser, Compiler oder Sprachversionen werden von Ihren vorgesehenen Benutzern verwendet? Würde die Unterstützung von zusätzlichen Betriebssystemen, Webbrowsern, Compilern oder Sprachversionen neue Benutzer ermutigen, Ihre Software zu übernehmen?
+  guidance:
+  - Zu den beabsichtigten Nutzern könnten Sie selbst, Ihre Forschungsgruppe, Ihre Abteilung oder Institution, Ihr Projekt, Ihre Forschungsgemeinschaft, andere Forschungsgemeinschaften oder die Öffentlichkeit gehören.
+  - Wenn Ihre Software ein Framework ist, das es Benutzern ermöglicht, ihre eigenen Plugins zu entwickeln, oder eine Bibliothek ist, die Benutzer innerhalb ihrer eigenen Forschungssoftware verwenden können, benötigen Ihre Benutzer etwas Erfahrung in der Softwareentwicklung, um das Beste aus Ihrer Software herauszuholen.
+  - Wenn die bei Ihren beabsichtigten Benutzern beliebten Umgebungen nicht die sind, die Sie normalerweise bevorzugen würden, dann zielen Sie auf die Umgebungen Ihrer beabsichtigten Benutzer. Erwarten Sie nicht, dass Ihre beabsichtigten Benutzer in Ihre bevorzugte Umgebung wechseln, da dies eine Barriere zwischen ihnen und Ihrer Software darstellt. Wenn beispielsweise Windows das vorherrschende Betriebssystem Ihrer beabsichtigten Benutzer ist, wäre es unangemessen, von ihnen zu erwarten, dass sie auf Linux migrieren, nur um Ihre Software zu verwenden. Software, die auf mehreren Betriebssystemen kompiliert oder ausgeführt werden kann, hat eine größere potenzielle Benutzergemeinschaft als Software, die auf ein einzelnes Betriebssystem beschränkt ist. Für webbasierte Anwendungen haben diejenigen eine größere potenzielle Nutzergemeinschaft, die in mehreren Browsern ausgeführt werden können.
+- section: Wie werden Sie Ihre Software Ihren Benutzern zur Verfügung stellen?
+  consider:
+  - Werden Sie Ihre Software überhaupt freigeben?
+  - Werden Sie Binärdateien, Bibliotheken oder Pakete veröffentlichen?
+  - Werden Sie Ihren Quellcode freigeben? Benötigen Ihre Geldgeber oder andere Interessengruppen, dass Sie Ihren Quellcode freigeben?
+  - Unter welcher Art von Lizenz werden Sie Ihre Software zur Verfügung stellen?
+  - Wie werden die Benutzer auf Ihre Software zugreifen?
+  - Müssen sich Benutzer registrieren, um auf Ihre Software zuzugreifen oder sie nutzen zu können?
+  - Wird Ihre Software als Online-Dienst oder über ein Webportal zugänglich sein?
+  - Werden Sie den Nutzern eine Gebühr für den Zugriff oder die Nutzung Ihrer Software berechnen? Wofür werden die Einnahmen aus diesen Gebühren verwendet?
+  guidance:
+  - Die Bereitstellung Ihrer Software für andere Forscher ermöglicht es anderen, Ihre Forschung zu überprüfen, zu replizieren, zu reproduzieren und wiederzuverwenden und langfristig verfügbar zu machen.
+  - Die Veröffentlichung von Binärdateien wie ausführbare Dateien, Docker- oder Singularity-Container oder virtuelle Maschinen kann es anderen Forschern ermöglichen, Ihre Forschung zu replizieren und wiederzuverwenden. Je nach Implementierung (z.B. wie konfigurierbar sie sind) können sie auch die Reproduzierbarkeit unterstützen. Sie erlauben es jedoch nicht, dass andere Ihre Software überprüfen, um genau zu verstehen, was ausgeführt wurde und wie Ihre Ergebnisse erzielt wurden. Ein ergänzendes Papier kann diese Informationen liefern, die Resultate liefert jedoch der ausgeführte Quellcode.
+  - Die Freigabe Ihrer Software als Open-Source-Software gibt anderen Forschern die Freiheit, Ihre Software zu inspizieren, ihren Quellcode zu lesen und genau zu verstehen, was ausgeführt wurde und wie Ihre Ergebnisse produziert wurden, und Ihre Ergebnisse zu validieren. Open-Source-Software unterstützt Replizierbarkeit, Reproduzierbarkeit und Wiederverwendung. Die Veröffentlichung Ihrer Software als Open Source könnte die Akzeptanz durch andere fördern und wiederum die potenzielle Wirkung Ihrer Forschung erhöhen. Selbst wenn Ihre Geldgeber oder andere Interessensgruppen von Ihnen keine Freigabe Ihres Quellcodes verlangen, sollten Sie die Freigabe Ihres Quellcodes in Betracht ziehen, wenn sie sonst keine Einwände haben. Siehe OSS Watch's "Vorteile von Open Source Code" (<http://oss-watch.ac.uk/resources/whoneedssource>).
+  - Eine Softwarelizenz ist eine ausdrückliche und rechtsverbindliche Erklärung darüber, was andere mit Ihrer Software tun können und die damit verbundenen Verpflichtungen. Wenn Ihre Software keine Lizenz hat, dann haben andere keine ausdrückliche Erlaubnis, Ihre Software zu verwenden, zu modifizieren oder weiterzugeben. Lesen Sie den Leitfaden des Software Sustainability Institute zum Thema "So wählen Sie eine Softwarelizenz" (<https://softwaresaved.github.io/software-deposit-guidance/HowToChooseSoftwareLicence.html>).
+  - "Es gibt viele Möglichkeiten, wie Sie Ihre Software verbreiten können. Dazu gehören: eine binäre ausführbare Datei, die direkt ausgeführt werden kann; ein Archiv (.zip oder.tar.gz) von binären ausführbaren Dateien oder Bibliotheken oder als Python- oder R-Pakete; ein Archiv von Quellcode; über einen Download-Link auf einer Website; per E-Mail von Ihnen; über den Zugriff auf ein Quellcode-Repository, das in Ihrer Einrichtung oder auf einer Drittanbieter-Site wie GitHub gehostet wird (<https://github.).com>), GitLab (<https://gitlab.com>), BitBucket (<https://bitbucket.org>), LaunchPad (<https://launchpad.net>) oder Assembla (<https://www.assembla.com>); über ein digitales Repository wie Zenodo (<https://zenodo.org>) oder figshare (<https://figshare.com>) oder ein von Ihrer Institution oder Gemeinde bereitgestelltes."
+  - Das Erstellen oder Kompilieren von Software kann kompliziert und zeitaufwendig sein. Stellen Sie Ihre Software in einer Form zur Verfügung, die es ermöglicht, sie sofort einzusetzen und zu verwenden ohne vorheriges Erstellen durch den Benutzer. Dies spart Ihren Benutzern Zeit und Mühe und kann besonders sinnvoll sein, wenn Ihre Benutzer keine Softwareentwickler sind.
+  - Wenn Sie den Zugriff auf Ihre Software nicht überwachen oder den Zugriff nur auf autorisierte Benutzer beschränken müssen, sollten Sie einen anonymen Zugriff auf Ihre Software und deren Verwendung in Betracht ziehen.
+  - Der kostenlose und anonyme Zugriff auf Ihre Software ermöglicht es den Nutzern, sofort darauf zuzugreifen und sie "auszuprobieren". Dies kann auch dazu beitragen, Ihre Software attraktiver zu machen als konkurrierende Software, die über ähnliche Funktionen verfügt, aber eine Registrierung erfordert oder eine Gebühr für ihre Nutzung verlangt.
+  - Wenn die Benutzer Ihrer Software eine Gebühr zahlen sollen, bevor sie auf Ihre Software zugreifen oder sie nutzen können, müssen Sie den Benutzern sagen, warum sie diese Gebühr erheben und was sie dafür erhalten. Ihre Gebühr kann Ihre Zeit für die Entwicklung oder den Support Ihrer Software finanzieren oder die Finanzierung von Infrastrukturen oder Abhängigkeiten von Dritten unterstützen.
+- section: Wie werden Sie diejenigen unterstützen, die Ihre Software nutzen?
+  consider:
+  - Wie viel Aufwand werden Sie investieren können, um Ihren Benutzern Support anzubieten?
+  - Welche Art von Support werden Sie anbieten?
+  - Auf welchen Wegen können Benutzer um Hilfe bitten?
+  - Wie werden Sie mit ihren Anfragen umgehen?
+  - Wo werden Sie Informationen über Art und Umfang des verfügbaren Supports veröffentlichen?
+  - Werden die Benutzer andere Benutzeranfragen und die Antworten darauf sehen können?
+  guidance:
+  - Niemand hat ein Recht darauf, Unterstützung für frei verfügbare Software zu erwarten. Wenn Sie Ihre Software jedoch freigeben oder zur Nutzung bereitstellen, erhalten Sie zwangsläufig Fragen zur Verwendung. Anfragen zu ignorieren, kann zu verärgerten Benutzern führen, die negatives Feedback erzeugen oder sogar aufhören, Ihre Software zu benutzen.
+  - Die Beantwortung von Hilfeersuchen bedeutet nicht automatisch, dass Sie Zeit für die Fehlerbehebung investieren oder neue Funktionen implementieren müssen. Sie bestätigen damit lediglich, dass Sie über das Anliegen in Kenntniss gesetzt wurden.
+  - Wie viel Aufwand Sie oder Ihre Gruppe investieren, um Benutzer zu unterstützen, hängt von Ihnen ab. Es steht Ihnen auch frei, keinen Support zu leisten, wenn Sie nicht über die Zeit verfügen. Es ist immer gut, auf Ihrer Webseite oder in Ihrer Dokumentation klarzustellen, welche Unterstützung Sie anbieten, z.B. "wir werden auf alle E-Mails innerhalb einer Woche antworten und Sie wissen lassen, wann oder ob wir Ihr Problem lösen können". Ein Benutzer wird immer wollen, dass sein Problem so schnell wie möglich gelöst wird, und kann verärgert sein, wenn dies nicht der Fall ist. Wenn Sie das Niveau Ihres Supports klar kommunizieren, dann haben Ihre Benutzer weniger Grund zur Beschwerde.
+  - "Wenn Sie Hilfe und Unterstützung anbieten können, dann gibt es viele Möglichkeiten, wie Sie Ihre Benutzer dazu bringen können, Hilfe und Unterstützung anzufordern, einschließlich: eine E-Mail an Sie oder an eine E-Mail-Liste oder ein Forum oder das Erstellen eines Problems in einem Ticketing- oder Issue-Tracking-System (<https://en.wikipedia.org/wiki/Issue_tracking_system>)."
+  - "Es gibt viele Möglichkeiten, den geleisteten Support und die Lösungen zu veröffentlichen: E-Mail-Archive, FAQ-Listen oder ein öffentlich sichtbares Ticketing- oder Issue-Tracking-System. Den Benutzer frühzeitig über diese Ressourcen in Kenntniss zu setzen, kann helfen, sich selbst zu helfen und den Aufwand für die Bereitstellung von Support zu reduzieren."
+  - Siehe "Supporting Open Source Software" (<https://software.ac.uk/resources/guides/supporting-open-source-software>) und "Top-Tipps für das Management von Supportanfragen" (<https://www.software.ac.uk/blog/2014-01-21-top-tips-managing-support-requests>) des Software Sustainability Institute. Viele der Punkte gelten nicht nur für die Unterstützung von Open-Source-Software, sondern für jede Software.
+- section: Wie wird Ihre Software zur Forschung beitragen?
+  consider:
+  - Wird Sie Ihren Benutzern die Recherche zu erleichtern? Schneller Ergebnisse zu erzielen? Ergebnisse mit höherer Genauigkeit oder höherem Detaillierungsgrad erzielen? Ermöglicht sie die Nutzung von Supercomputern?
+  - Wird es Ihren Nutzern helfen, die Forschung voranzutreiben, indem es Forschung ermöglicht, die derzeit nicht möglich ist?
+  - Wird Ihre Software in irgendeiner Form eine neuartige Lösung für ein Forschungsproblem implementieren?
+  - Wo liegen die Grenzen ähnlicher Forschungssoftware, die bereits existiert? Wie wird Ihre Software besser sein?
+  - Welche Vorteile sind für jeden Benutzertyp vorgesehen?
+  guidance:
+  - Bei der Entwicklung von Forschungssoftware ist es gut zu erklären, wie sie zur Forschung beiträgt, sei es durch eigene oder fremde Forschung mit Ihrer Forschungssoftware.
+- section: In welchem Zusammenhang zu anderen Forschungsergebnissen steht ihre Software?
+  consider:
+  - Welche veröffentlichten Forschungsergebnisse oder -daten beziehen sich auf Ihre Forschungssoftware?
+  - Gibt es veröffentlichte Arbeiten, die die Forschung beschreiben, die Ihre Software ermöglichen wird?
+  - Wird Ihre Software erweitert oder hängt sie von anderer Forschungssoftware ab?
+  - Wird Ihre Software auf Datensätze zugreifen oder Online-Dienste aufrufen?
+  - Werden Sie Papiere über die Forschung veröffentlichen, zu der Ihre Software beigetragen hat?
+  - Werden Sie die von Ihrer Software produzierten Datensätze veröffentlichen?
+  guidance:
+  - Zusammenfassend kann Forschungssoftware neben Daten, Geräten und einer übergreifenden Forschungsfrage als eine Forschungsaktivität betrachtet werden, die es wert ist, veröffentlicht zu werden. Das Verstehen, Erfassen und Veröffentlichen von Informationen über die mit Ihrer Software verbundenen Forschungsergebnisse (z.B. Publikationen, Daten, andere Forschungssoftware, Versuchseinrichtungen, Dienstleistungen) ermöglicht es anderen, Ihre Software als integralen Bestandteil der Beantwortung einer Forschungsfrage zu verstehen.
+  - Beachten Sie nicht nur die Forschungsergebnisse, die direkt von Ihrem Projekt produziert wurden, sondern auch die von anderen, die Ihre Software verwendet und in ihren eigenen Papieren oder Software zitiert haben.
+  - Weitere Informationen zu Forschungsdaten finden Sie unter "The FAIR Guiding Principles for scientific data management and stewardship" (<https://doi.org/10.1038/sdata.2016.18>), die die Veröffentlichung und Nutzung digitaler Forschungsobjekte fördern, die auffindbar, zugänglich, interoperabel und wiederverwendbar sind. Außerdem auf researchobject.org (<http://www.researchobject.org/>), wo maschinenlesbare Darstellungen dieser Objekte angeboten werden.
+- section: Wie werden Sie den Beitrag Ihrer Software zur Forschung messen?
+  consider:
+  - Welche Nachweise erwarten Ihre Geldgeber und andere Interessensgruppen, für den Beitrag Ihrer Software zur Forschung?
+  - Werden Sie messen, wer Ihre Software heruntergeladen hat?
+  - Werden Sie messen, wer Ihre Software benutzt hat?
+  - Werden Sie Informationen über Veröffentlichungen sammeln, die Forschungsergebnisse beschreiben, zu deren Ermöglichung Ihre Software beigetragen hat?
+  - Beabsichtigen Sie, eine Zitationsmöglichkeit für Ihre Software anzubieten?
+  guidance:
+  - "Es gibt viele Möglichkeiten, das Interesse an Ihrer Software zu quantifizieren. Z.B. wie viele Menschen Interesse an Ihrer Software gezeigt haben, wie viele Ihre Software verwendet haben oder wofür sie sie verwendet haben. Dazu gehören: Anzahl der Downloads; Anzahl der Forks, wenn sie auf GitHub, GitLab oder BitBucket gehostet werden; Anzahl und Art der Codebeiträge wie Bugfixes, Verbesserungen oder Extensions (z.B. Anzahl der Pull-Requests oder E-Mails mit Patches); Anzahl der E-Mail-Listen- oder Forumsmitglieder; Anzahl der Support-Anfragen wie E-Mails, Bug-Reports, Feature-Requests oder offene Themen; Papiere, die Sie und Ihre Benutzer veröffentlicht haben, zu denen die Nutzung Ihrer Software beigetragen hat; Zitate dieser Papiere; Blog-Einträge von anderen über die Verwendung Ihrer Software; Anzahl der Teilnehmer an Konferenz- oder Workshop-Vorträgen, Software-Demos, Postersitzungen oder Tutorials."
+  - In der gleichen Weise, wie erwartet wird, dass andere Ihre Arbeiten zitieren, wenn sie sie im Rahmen ihrer Forschung verwendet haben, können Sie verlangen, dass andere Ihre Software in allen Publikationen zitieren, die aus der Nutzung Ihrer Software resultieren. Dies hilft Ihnen, die Anerkennung für Ihre Forschung zu erhalten, die sich in Ihrer Software manifestiert. Sie können nach diesen Zitaten in Papieren, Publikationen, anderer Software, Dokumentation, Webseiten und Blog-Einträgen suchen, um Informationen über die Auswirkungen Ihrer Software zu sammeln. Sie können auch andere bitten, Sie darüber zu informieren, ob sie solche Arbeiten veröffentlichen. Dies kann Ihnen helfen, die Auswirkungen Ihrer Software und deren Beitrag zur Forschung für Ihre Geldgeber, Arbeitgeber, Interessensvertreter und Ihre Anwender-Community transparent zu machen.
+  - Erstellen Sie eine CITATION.cff-Datei mit Ihrem Quellcode, in der Ihr Zitat im Citation File Format (CFF) (<https://citation-file-format.github.io/>) ausgedrückt wird.
+  - Weitere Informationen über den Mehrwert und die Verwendung von Softwarezitaten finden Sie in den Software Citation Principles der FORCE11 Software Citation Working Group (<https://www.force11.org/software-citation-principles>).
+  - Treffen Sie Benutzer auf Konferenzen und Workshops, kontaktieren Sie sie per E-Mail und erstellen Sie kurze Fragebögen (z.B. über Jisc Online Surveys (<https://www.jisc.ac.uk/online-surveys>), die über Ihre Website oder Twitter verteilt werden. Damit sammeln Sie Informationen darüber, wie Benutzer Ihre Software genutzt und davon profitiert haben.
+- section: Wo werden Sie Ihre Software ablegen, um deren langfristige Verfügbarkeit zu gewährleisten?
+  consider:
+  - Werden Sie Releases Ihrer Software in einem digitalen Repository ablegen?
+  - Welche digitalen Repositorien sind für Sie geeignet?
+  - Hat Ihr Geldgeber oder Verleger ein digitales Repository zur Nutzung empfohlen oder beauftragt?
+  - Gibt Ihnen das digitale Repository eine eindeutige, dauerhafte digitale Kennung für Ihren Eintrag?
+  - Kann das digitale Repository die Speicheranforderungen Ihrer Software erfüllen?
+  - Sind die Richtlinien des Repositories für Sie akzeptabel?
+  - Ist die Langlebigkeit des digitalen Speichers für Sie akzeptabel?
+  - Ist das digitale Repository kostenlos oder müssen Sie eine Gebühr bezahlen? Wenn es eine Gebühr gibt, ist dies eine einmalige Zahlung und können Sie sie sich leisten?
+  guidance:
+  - Forschungssoftware hat eine Lebensdauer. Diese kann weit über die Ihres Projekts oder den Zeitraum hinausgehen, für den Sie es aktiv entwickeln und pflegen. Ihre Benutzergemeinschaft kann sie darüber hinaus weiter benötigen, verwenden oder weiterentwickeln, lange nachdem Ihr Projekt abgeschlossen ist und Sie zu anderen Projekten übergegangen sind.
+  - Repository-Hosting-Services wie GitHub, BitBucket, GitLab, Assembla oder Microsoft Visual Studio Team Services (<https://www.visualstudio.com/team-services/>), die Quellcode-Repositories hosten, sind ideal für die Entwicklung aktiver Software. Sie sind jedoch nicht so gut geeignet, um eine langfristige Verfügbarkeit zu gewährleisten. Sie erstellen keine eindeutigen persistenten digitalen Identifikatoren (<https://en.wikipedia.org/wiki/Persistent_identifier>) für Ihre Repositories, sondern liefern nur URLs. Ihre Repositories können später von Ihnen oder Ihrer Institution gelöscht werden, oder der Repository-Hosting-Service kann seinen Betrieb einstellen und Links zu diesen URLs unterbrechen.
+  - Die Hinterlegung Ihrer Software in einem digitalen Repository stellt sicher, dass die genauen Versionen Ihrer Software, mit Hilfe derer Sie Ihre Forschungsergebnisse erzeugt haben, erhalten und für die zukünftige Nutzung sowohl durch Sie selbst als auch durch andere Forscher verfügbar bleiben. Sie ermöglichen es damit anderen Forschern, Ihre Forschung und Ihre Software zu inspizieren, zu replizieren, zu reproduzieren und wiederzuverwenden. Es sorgt dafür, dass Ihre Software über die Laufzeit Ihres aktuellen Projekts oder Ihrer aktuellen Anstellung an einer bestimmten Institution hinaus verfügbar bleibt.
+  - Digitale Repositorien können eindeutige persistente digitale Identifikatoren für Software bereitstellen, die von anderen zitiert werden können. Dies kann wiederum dazu beitragen, dass Sie die Anerkennung für Ihre Forschungssoftware erhalten, wenn sie von anderen genutzt wird.
+  - Siehe "Software Sustainability Institute's "Software Deposit Guidance for Researchers" (<https://softwaresaved.github.io/software-deposit-guidance/>) und Neil Chue Hong, Steve Crouch, Simon Hettrick, Tim Parkinson, Matt Shreeve, "Software Preservation Benefits Framework", The Software Sustainability Institute und Curtis+Cartwright Consulting Ltd, 7 December 2010 (<https://www.software.ac.uk/attach/SoftwarePreservationBenefitsFramework.pdf>).

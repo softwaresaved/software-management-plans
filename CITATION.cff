@@ -21,6 +21,9 @@ authors:
   - family-names: Davey
     given-names: Robert
     affiliation: The Genome Analysis Centre
+  - family-names: Gey
+    given-names: Ronny
+    affiliation: University Library Leipzig
   - family-names: Goble
     given-names: Carole
     affiliation: The Software Sustainability Institute
@@ -48,6 +51,9 @@ authors:
   - family-names: Sufi
     given-names: Shoaib
     affiliation: The Software Sustainability Institute
+version: "1.0.1"
+doi: 10.5281/zenodo.2159713
+date-released: 2019-07-09
 version: "1.0"
 doi: 10.5281/zenodo.2159713
 date-released: 2018-12-10
