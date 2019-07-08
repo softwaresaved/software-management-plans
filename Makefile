@@ -1,13 +1,16 @@
 PAPER_PREFIX = SoftwareManagementPlanChecklist
 TEMPLATE_PREFIX = SoftwareManagementPlanTemplate
-YAML = data/checklist.yaml
+
+# Available languages: en, de
+YAML = data/checklist_en.yaml
 HTML_LAYOUT = templates/doc.html
 IMAGES = $(wildcard images/*.png)
 CSS = css/style.css
 DOCX_STYLE = templates/reference.docx
 ODT_STYLE = templates/reference.odt
 
-YAML_TO_MD = src/yaml_to_markdown.py
+# Available languages: en, de
+YAML_TO_MD = src/yaml_to_markdown_en.py
 PANDOC = pandoc
 WKHTMLTOPDF = wkhtmltopdf --disable-smart-shrinking
 LINK_CHECKER = linkchecker --check-extern --no-robots
