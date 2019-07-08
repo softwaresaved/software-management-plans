@@ -230,6 +230,8 @@ The software management plan is available in English and German. To change the l
 - `YAML = data/checklist_en.yaml` or `YAML = data/checklist_de.yaml`
 - `YAML_TO_MD = src/yaml_to_markdown_en.py` or `YAML_TO_MD = src/yaml_to_markdown_en.py`
 
+After you switched the languages in the Makefile make sure to `make clean` before you create the papers.
+
 If you want to translate the software management plan into your preferred language, do the following:
 
 1. copy `data/checklist_en.yaml` and `src/yaml_to_markdown_en.py` to the same folder
