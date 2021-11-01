@@ -192,7 +192,7 @@ A full report is created in `build/link-check.txt`.
 
 ---
 
-## Create Markdown, Word and OpenOffice/LibreOffice checkist templates
+## Create Markdown, Word and OpenOffice/LibreOffice checklist templates
 
 Create Markdown (md), Word (docx) and OpenOffice/LibreOffice (odt) checklist templates for publication online so researchers can use these in their projects.
 
